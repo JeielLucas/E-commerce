@@ -3,7 +3,6 @@ import re
 regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
 def validateLogin(email, password):
-  print('oi')
   valid = False
   if re.fullmatch(regex, email):
     linha = 0
@@ -15,4 +14,5 @@ def validateLogin(email, password):
         lerSenha = senhas.readlines()
         if lerSenha[linha-1] == password:
           valid = True
+  print(valid)
   return valid
