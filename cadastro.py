@@ -49,4 +49,4 @@ def verificarCPF(cpf):
             print('CPF errado')
     else:
         print('CPF errado')
-verificarCPF('665.97.72.25-15')
+verificarCPF('')
