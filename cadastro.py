@@ -1,4 +1,8 @@
 import re
+def dados(senha, confsenha, email, cpf, nome, nascimento):
+    print(f'{senha}\n{confsenha}')
+    print(f'{email}\n{cpf}')
+    print(f'{nome}\n{nascimento}')
 def verificarIgualdadeSenha(senha, confSenha):
     igual = False
     if senha == confSenha:
@@ -49,4 +53,4 @@ def verificarCPF(cpf):
             print('CPF errado')
     else:
         print('CPF errado')
-verificarCPF('')
+verificarCPF('07748893578')

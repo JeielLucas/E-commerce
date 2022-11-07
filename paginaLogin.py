@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter.font as tkFont
 from verificarLogin import validateLogin
+from cadastro import dados
 
 def login2(janela):
     fontLogin = tkFont.Font(family='Arial', size=22)
@@ -77,17 +78,17 @@ def cadastro1(janela):
     email.configure(font=(fonteDados))
     email.place(relx=0.65, rely=0.35, relwidth=0.3)
 
-    password = Entry()
+    password = Entry(show='*')
     password.insert(0, 'Digite uma senha')
     password.configure(font=(fonteDados))
     password.place(relx=0.65, rely=0.5, relwidth=0.3)
 
-    confPassword = Entry()
+    confPassword = Entry(show='*')
     confPassword.insert(0,'Confirme a sua senha')
     confPassword.configure(font=(fonteDados))
     confPassword.place(relx=0.65, rely=0.65, relwidth=0.3)
 
-    cadastro = Button(text='Cadastrar', background='Black', foreground='White', relief='flat')
+    cadastro = Button(text='Cadastrar', background='Black', foreground='White', relief='flat', command=lambda: dados(password.get(), confPassword.get(), email.get(), cpf.get(), nomeCompleto.get(), dataNascimento.get()))
     cadastro.place(relx=0.75, rely=0.73)
     cadastro.configure(font=(16))
 

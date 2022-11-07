@@ -1,11 +1,11 @@
 from tkinter import *
 import tkinter.font as tkFont
-from paginaLogin import login2
+from paginaLogin import login2, cadastro1
 
 janela = Tk()
 janela.title('CompuStore')
 janela.geometry('1500x750+10+20')
-janela.iconbitmap(default='Imagens\Icon.ico')
+janela.iconbitmap(default='icon.ico')
 janela.resizable(False, False)
 
 
@@ -24,8 +24,8 @@ fontSeparador = tkFont.Font(family='Arial', size=17)
 
 
 #Frame1
-img_logo = PhotoImage(file='Imagens\Logo.png')
-carrinho = PhotoImage(file='Imagens\Carrinho.png')
+img_logo = PhotoImage(file='logo.png')
+carrinho = PhotoImage(file='carrinho.png')
 image = Label(frame1, image=img_logo, background='Black')
 image.place(relx=0.05, rely= -0.5)
 sacola = Label(frame1, image=carrinho, background='Black')
