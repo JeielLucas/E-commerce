@@ -6,6 +6,7 @@ def verificarIgualdadeSenha(senha, confSenha):
         igual = True
     return igual
 
+
 def verificarEmail(email):
     valid = False
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
@@ -15,16 +16,17 @@ def verificarEmail(email):
         if n_itens == []:
             valid = True
         else:
-            for i in emailCliente:
+           # emailClient = open('email.txt', 'r')
+            for i in n_itens:
                 if i == email:
                     valid = False
                     break
                 else:
                     valid = True
+            #emailClient.close()
         emailCliente.close()
     return valid
 
-print(verificarEmail('jeiel@gmail.com'))
 
 def verificarCPF(cpf):
     valid = False
@@ -62,14 +64,17 @@ def verificarCPF(cpf):
                 if n_itens == []:
                     valid = True
                 else:
-                    for i in cpfCliente:
+                    #cpfClient = open('cpf.txt', 'r')
+                    for i in n_itens:
                         if i == cpf:
                             valid = False
                             break
                         else:
                             valid = True
+                    #cpfClient.close()
                 cpfCliente.close()
     return valid
+
 
 def dados(senha, confSenha, email, cpf, nome, nascimento):
     validSenha = verificarIgualdadeSenha(senha, confSenha)
@@ -93,4 +98,6 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
             print('Email em formato inválido ou já cadastrado')
     else:
         print('Senhas não conferem')
-#dados('Jejeu', 'Jejeu', 'jeiel@gmail.com', '85169870515', 'a', 'a')
+
+
+#dados('senha', 'confirmar senha', 'email', 'cpf', 'nome', 'data de nascimento')
