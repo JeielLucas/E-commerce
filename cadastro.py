@@ -10,7 +10,14 @@ def verificarEmail(email):
     valid = False
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
     if re.fullmatch(regex, email):
-        valid = True
+        emailCliente = open('email.txt', 'r')
+        for i in emailCliente:
+            if i == email:
+                valid = False
+                break
+            else:
+                valid = True
+        emailCliente.close()
     return valid
 
 def verificarCPF(cpf):
@@ -44,13 +51,14 @@ def verificarCPF(cpf):
             if resto >= 2:
                 digito2 = 11 - resto
             if digito2 == int(cpf[10]):
-                valid = True
-            else:
-                print('CPF errado')
-        else:
-            print('CPF errado')
-    else:
-        print('CPF errado')
+                cpfCliente = open('cpf.txt', 'r')
+                for i in cpfCliente:
+                    if i == cpf:
+                        valid = False
+                        break
+                    else:
+                        valid = True
+                cpfCliente.close()
     return valid
 
 def dados(senha, confSenha, email, cpf, nome, nascimento):
@@ -64,17 +72,17 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
                 emailCliente = open('email.txt', 'a')
                 passwordCliente = open('password.txt', 'a')
                 cpfCliente = open('cpf.txt', 'a')
-                emailCliente.write('\n')
-                emailCliente.write(email)
-                cpfCliente.write('\n')
-                cpfCliente.write(cpf)
-                passwordCliente.write('\n')
-                passwordCliente.write(senha)
+                #emailCliente.write('\n')
+                emailCliente.write('email\n')
+                #cpfCliente.write('\n')
+                cpfCliente.write('cpf\n')
+                #passwordCliente.write('\n')
+                passwordCliente.write('senha\n')
                 emailCliente.close()
                 passwordCliente.close()
             else:
-                print('CPF Incorreto ou formato inválido')
+                print('CPF Incorreto/formato inválido ou já cadastrado')
         else:
-            print('Email em formato inválido')
+            print('Email em formato inválido ou já cadastrado')
     else:
         print('Senhas não conferem')
