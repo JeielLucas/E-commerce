@@ -11,14 +11,20 @@ def verificarEmail(email):
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
     if re.fullmatch(regex, email):
         emailCliente = open('email.txt', 'r')
-        for i in emailCliente:
-            if i == email:
-                valid = False
-                break
-            else:
-                valid = True
+        n_itens = emailCliente.readlines()
+        if n_itens == []:
+            valid = True
+        else:
+            for i in emailCliente:
+                if i == email:
+                    valid = False
+                    break
+                else:
+                    valid = True
         emailCliente.close()
     return valid
+
+print(verificarEmail('jeiel@gmail.com'))
 
 def verificarCPF(cpf):
     valid = False
@@ -52,12 +58,16 @@ def verificarCPF(cpf):
                 digito2 = 11 - resto
             if digito2 == int(cpf[10]):
                 cpfCliente = open('cpf.txt', 'r')
-                for i in cpfCliente:
-                    if i == cpf:
-                        valid = False
-                        break
-                    else:
-                        valid = True
+                n_itens = cpfCliente.readlines()
+                if n_itens == []:
+                    valid = True
+                else:
+                    for i in cpfCliente:
+                        if i == cpf:
+                            valid = False
+                            break
+                        else:
+                            valid = True
                 cpfCliente.close()
     return valid
 
@@ -72,9 +82,9 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
                 emailCliente = open('email.txt', 'a')
                 passwordCliente = open('password.txt', 'a')
                 cpfCliente = open('cpf.txt', 'a')
-                emailCliente.write('email\n')
-                cpfCliente.write('cpf\n')
-                passwordCliente.write('senha\n')
+                emailCliente.write(f'{email}\n')
+                cpfCliente.write(f'{cpf}\n')
+                passwordCliente.write(f'{senha}\n')
                 emailCliente.close()
                 passwordCliente.close()
             else:
@@ -83,3 +93,4 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
             print('Email em formato inválido ou já cadastrado')
     else:
         print('Senhas não conferem')
+#dados('Jejeu', 'Jejeu', 'jeiel@gmail.com', '85169870515', 'a', 'a')
