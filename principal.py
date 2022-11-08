@@ -37,7 +37,7 @@ separar = Label(frame1, text='|', background='Black', foreground='White')
 separar.place(relx=0.791, rely=0.38)
 separar.configure(font=(fontSeparador))
 login.configure(font=('Arial', 15))
-cadastro = Button(frame1, text='Cadastro', background='Black', foreground='White', cursor='hand2', relief='flat', command=lambda:[frame2.destroy(), cadastro1(janela)])
+cadastro = Button(frame1, text='Cadastro', background='Black', foreground='White', cursor='hand2', relief='flat', command=lambda:cadastro1(janela))
 cadastro.configure(font=('Arial', 15))
 cadastro.place(relx= 0.8, rely= 0.4, relwidth=0.06, relheight=0.2)
 

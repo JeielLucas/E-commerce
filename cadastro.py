@@ -1,18 +1,17 @@
 import re
-def dados(senha, confsenha, email, cpf, nome, nascimento):
-    print(f'{senha}\n{confsenha}')
-    print(f'{email}\n{cpf}')
-    print(f'{nome}\n{nascimento}')
+
 def verificarIgualdadeSenha(senha, confSenha):
     igual = False
     if senha == confSenha:
         igual = True
+    return igual
 
 def verificarEmail(email):
     valid = False
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
     if re.fullmatch(regex, email):
         valid = True
+    return valid
 
 def verificarCPF(cpf):
     valid = False
@@ -46,11 +45,36 @@ def verificarCPF(cpf):
                 digito2 = 11 - resto
             if digito2 == int(cpf[10]):
                 valid = True
-                print(valid)
             else:
                 print('CPF errado')
         else:
             print('CPF errado')
     else:
         print('CPF errado')
-verificarCPF('07748893578')
+    return valid
+
+def dados(senha, confSenha, email, cpf, nome, nascimento):
+    validSenha = verificarIgualdadeSenha(senha, confSenha)
+    if validSenha == True:
+        validEmail = verificarEmail(email)
+        if validEmail == True:
+            validCPF = verificarCPF(cpf)
+            if validCPF == True:
+                print('Cadastro feito com sucesso')
+                emailCliente = open('email.txt', 'a')
+                passwordCliente = open('password.txt', 'a')
+                cpfCliente = open('cpf.txt', 'a')
+                emailCliente.write('\n')
+                emailCliente.write(email)
+                cpfCliente.write('\n')
+                cpfCliente.write(cpf)
+                passwordCliente.write('\n')
+                passwordCliente.write(senha)
+                emailCliente.close()
+                passwordCliente.close()
+            else:
+                print('CPF Incorreto ou formato inválido')
+        else:
+            print('Email em formato inválido')
+    else:
+        print('Senhas não conferem')
