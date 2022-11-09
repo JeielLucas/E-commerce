@@ -2,8 +2,17 @@ import re
 
 def verificarIgualdadeSenha(senha, confSenha):
     igual = False
-    if senha == confSenha:
-        igual = True
+    tamanhoSenha = len(senha)
+    if tamanhoSenha < 8:
+        pass
+    else:
+        if senha == confSenha:
+            for i in senha:
+                if i == ' ' or i == '':
+                    igual = False
+                    break
+                else:
+                    igual = True
     return igual
 
 
@@ -101,7 +110,7 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
         else:
             print('Email em formato inválido ou já cadastrado')
     else:
-        print('Senhas não conferem')
+        print('Senha em formato inválido ou não confere')
 
 
-dados('S1', 'S1', 'emaail@gmail.com', '851.698.705-15', 'nome', 'data de nascimento')
+dados('Senha', 'ConfirmarSenha', 'email@gmail.com', '000.000.000-00', 'nome', 'data de nascimento')
