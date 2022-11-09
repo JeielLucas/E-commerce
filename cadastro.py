@@ -18,6 +18,7 @@ def verificarEmail(email):
         else:
            # emailClient = open('email.txt', 'r')
             for i in n_itens:
+                i = i.replace(f'\n','')
                 if i == email:
                     valid = False
                     break
@@ -66,6 +67,9 @@ def verificarCPF(cpf):
                 else:
                     #cpfClient = open('cpf.txt', 'r')
                     for i in n_itens:
+                        i = i.replace('.', '')
+                        i = i.replace('-', '')
+                        i = i.replace(f'\n', '')
                         if i == cpf:
                             valid = False
                             break
@@ -100,4 +104,4 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
         print('Senhas não conferem')
 
 
-#dados('senha', 'confirmar senha', 'email', 'cpf', 'nome', 'data de nascimento')
+dados('S1', 'S1', 'emaail@gmail.com', '851.698.705-15', 'nome', 'data de nascimento')
