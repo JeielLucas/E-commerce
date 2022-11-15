@@ -23,19 +23,19 @@ def login2(janela):
     passText = Label(frame2, text='Senha:', background='Black', foreground='White')
     passText.configure(font=(fontLogin))
     passText.place(relx= 0.1, rely=0.48, relwidth=0.1, relheight=0.2)
-    password = Entry(show='•')
+    password = Entry(show='*')
     password.configure(font=(16))
     password.place(relx= 0.123, rely=0.62, relwidth=0.2, relheight=0.05)
 
     separar = Label(frame2, text='')
     separar.place(relx=0.6, rely=0.1, relheight=0.8, relwidth=0.001)
     
-    login = Button(frame2, text='Login', background='Black', foreground='Red', relief='flat', command= lambda: validateLogin(email.get(), password.get()))
+    login = Button(frame2, text='Login', background='Black', foreground='White', relief='flat', command= lambda: validateLogin(email.get(), password.get()))
     login.place(relx= 0.2, rely=0.8, relwidth=0.05, relheight=0.08)
     login.configure(font=('Arial', 20))
 
 
-    po = Label(frame2, text='Não tem uma conta?', background='Black', foreground='#30dcd0')
+    po = Label(frame2, text='Não tem uma conta?', background='Black', foreground='#2CFFF8')
     po.place(relx= 0.68, rely=0.1, relwidth=0.22, relheight=0.2)
     po.configure(font=('Arial', 26))
     op = Button(frame2, text='Cadastre-se aqui', background='Black', foreground='White', relief='flat')
@@ -78,12 +78,12 @@ def cadastro1(janela):
     email.configure(font=(fonteDados))
     email.place(relx=0.65, rely=0.35, relwidth=0.3)
 
-    password = Entry(show='*')
+    password = Entry()
     password.insert(0, 'Digite uma senha')
     password.configure(font=(fonteDados))
     password.place(relx=0.65, rely=0.5, relwidth=0.3)
 
-    confPassword = Entry(show='*')
+    confPassword = Entry()
     confPassword.insert(0,'Confirme a sua senha')
     confPassword.configure(font=(fonteDados))
     confPassword.place(relx=0.65, rely=0.65, relwidth=0.3)
