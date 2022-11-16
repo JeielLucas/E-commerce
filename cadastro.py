@@ -111,9 +111,3 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
             print('Email em formato inválido ou já cadastrado')
     else:
         print('Senha em formato inválido ou não confere')
-
-<<<<<<< HEAD
-=======
-
-dados('Senha', 'ConfirmarSenha', 'email@gmail.com', '000.000.000-00', 'nome', 'data de nascimento')
->>>>>>> 24e31bfc94683184b555e70443d558195069b82c
