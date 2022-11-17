@@ -10,11 +10,11 @@ def endereco(janela):
     camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
-    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
-
     moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
     separar1.place(relx=0.437, rely=0.01)
@@ -80,11 +80,11 @@ def pagamento(janela):
     camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
-    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
-
     moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
     separar1.place(relx=0.437, rely=0.01)
@@ -148,11 +148,11 @@ def pagamentoPix(janela):
     camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
-    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
-
     moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
     separar1.place(relx=0.437, rely=0.01)
@@ -210,11 +210,11 @@ def boleto(janela):
     camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
-    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
-
     moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
     separar1.place(relx=0.437, rely=0.01)
@@ -282,11 +282,11 @@ def finalizar(janela):
     camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
-    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
-
     moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
     separar1.place(relx=0.437, rely=0.01)

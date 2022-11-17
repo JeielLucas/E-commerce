@@ -3,7 +3,7 @@ import tkinter.font as tkFont
 from verificarLogin import validateLogin
 from cadastro import dados
 
-def login2(janela):
+def login(janela):
     fontLogin = tkFont.Font(family='Arial', size=22)
 
     frame2 = Frame(janela, background='Black')
@@ -44,7 +44,7 @@ def login2(janela):
 
 
 
-def cadastro1(janela):
+def cadastro(janela):
     frame2 = Frame(janela, background='Black')
     frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
     
