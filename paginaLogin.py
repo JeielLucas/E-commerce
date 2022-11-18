@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter.font as tkFont
-from verificarLogin import validateLogin
+from verificarLogin import isLoged
 from cadastro import dados
 
 def login(janela):
@@ -30,7 +30,7 @@ def login(janela):
     separar = Label(frame2, text='')
     separar.place(relx=0.6, rely=0.1, relheight=0.8, relwidth=0.001)
     
-    login = Button(frame2, text='Login', background='Black', foreground='White', relief='flat', command= lambda: validateLogin(email.get(), password.get()))
+    login = Button(frame2, text='Login', background='Black', foreground='White', relief='flat', command= lambda: isLoged(janela, email.get(), password.get()))
     login.place(relx= 0.2, rely=0.8, relwidth=0.05, relheight=0.08)
     login.configure(font=('Arial', 20))
 

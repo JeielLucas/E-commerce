@@ -2,9 +2,11 @@ from tkinter import *
 import tkinter.font as tkFont
 from paginaLogin import login, cadastro
 from endereco import endereco, pagamento, pagamentoPix, boleto, finalizar
+from modelo import modelo_moletom, modelo_caneca
 
 qnt = 1
 qnt_itens = 1
+contador = 1
 
 janela = Tk()
 janela.title('CompuStore')
@@ -14,6 +16,7 @@ janela.resizable(False, False)
 
 qntVar = IntVar(janela, qnt)
 qnt_itensVar = IntVar(janela, qnt_itens)
+tamanho_roupaVar = StringVar(janela, 'M')
 
 frame1 = Frame(janela, background='Black')
 frame1.place(relx=0, rely=0, relwidth=1, relheight=0.2)
@@ -25,14 +28,14 @@ frame3.place(relx=0, rely= 0.86, relwidth=1, relheight= 0.15)
 fontSeparador = tkFont.Font(family='Arial', size=17)
 
 #Frame1
-img_logo = PhotoImage(file='Imagens/logo.png')
+img_logo = PhotoImage(file='Imagens/logo1.png')
 carrinho = PhotoImage(file='Imagens/carrinho.png')
 logo_sem_nome = PhotoImage(file='Imagens/logoImagem.png')
 image = Label(frame1, image=img_logo, background='Black')
 image.place(relx=0.05, rely= -0.5)
 sacola = Label(frame1, image=carrinho, background='Black')
 sacola.place(relx=0.87, rely=0.35)
-initial_page = Button(frame1, image=logo_sem_nome, relief='flat', cursor='hand2', command=lambda:paginaInicial())
+initial_page = Button(frame1, image=logo_sem_nome, relief='flat', cursor='hand2', command=lambda: paginaInicial())
 initial_page.place(relx=0.053, rely=0.17, relwidth=0.06, relheight=0.55)
 
 Login = Button(frame1, text='Login', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: login(janela))
@@ -53,13 +56,13 @@ def paginaInicial():
     fontE = tkFont.Font(family="Arial", size=14, weight="bold")
     fontE = tkFont.Font(family="Arial", size=14, weight="bold")
 
-    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_camisa(janela))
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
+    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_moletom(janela))
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat',)
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_caneca(janela))
     canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
@@ -80,7 +83,7 @@ def paginaInicial():
     img_camisa = PhotoImage(file='Imagens/Camisa.png')
     img1_camisa = Label(frame2, image=img_camisa)
     img1_camisa.place(relx=0.1, rely=0.4)
-    button1 = Button(frame2, text='>', background='Black', foreground='White', relief='flat', command=lambda: modelo_roupa(janela))
+    button1 = Button(frame2, text='>', background='Black', foreground='White', relief='flat', command=lambda: modelo_camisa(janela))
     button1.place(relx=0.22, rely=0.5)
     button1.configure(font=('italic', 30))
 
@@ -90,7 +93,7 @@ def paginaInicial():
     img_moletom = PhotoImage(file='Imagens/Moletom.png')
     img1_moletom = Label(frame2, image=img_moletom)
     img1_moletom.place(relx=0.45, rely=0.4)
-    button3 = Button(frame2, text='>', background='Black', foreground='White', relief='flat', command=lambda: modelo_roupa(janela))
+    button3 = Button(frame2, text='>', background='Black', foreground='White', relief='flat', command=lambda: modelo_moletom(janela))
     button3.place(relx=0.57, rely=0.5)
     button3.configure(font=('italic', 30))
 
@@ -122,20 +125,48 @@ def diminuir():
         qnt_itens -= 1
         qnt_itensVar.set(qnt_itens)
 
-def modelo_roupa(janela):
+def aumentar_tamanho_roupa():
+    global tamanho_roupaVar, contador
+    if contador >= 3:
+        contador = 3
+    else:
+        contador +=1
+    if contador == 1:
+        tamanho_roupaVar.set('M')
+    elif contador == 2:
+        tamanho_roupaVar.set('G')
+    elif contador == 3:
+        tamanho_roupaVar.set('GG')
+
+def diminuir_tamanho_roupa():
+    global tamanho_roupaVar, contador
+    if contador <= 0:
+        contador = 0
+    else:
+        contador -=1
+    if contador == 0:
+        tamanho_roupaVar.set('P')
+    elif contador == 1:
+        tamanho_roupaVar.set('M')
+    elif contador == 2:
+        tamanho_roupaVar.set('G')
+    elif contador == 3:
+        tamanho_roupaVar.set('GG')
+
+def comprar_roupa(janela):
     frame2 = Frame(janela, background='Black')
     frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
 
     fontE = tkFont.Font(family="Arial", size=14, weight="bold")
     fontSeparador = tkFont.Font(family='Arial', size=17)
 
-    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_camisa(janela))
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_caneca(janela))
     canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
+    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_moletom(janela))
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
@@ -168,27 +199,21 @@ def modelo_roupa(janela):
 
     quantidade = Label(frame2, text='Quantidade', background='Black', foreground='White')
     quantidade.place(relx=0.4, rely=0.55)
-    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', command= lambda: diminuir())
+    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', command= lambda: diminuir())
     diminuir_quantidade.place(relx=0.35, rely=0.6)
-    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', command= lambda: aumentar())
+    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', command= lambda: aumentar())
     aumentar_quantidade.place(relx=0.45, rely=0.6)
-    qnt_itens = Label(frame2, textvariable=qnt_itensVar, background='White', foreground='Black')
+    qnt_itens = Label(frame2, textvariable=qnt_itensVar)
     qnt_itens.place(relx=0.4, rely=0.6)
 
     tamanho = Label(frame2, text='Tamanho', background='Black', foreground='White')
     tamanho.place(relx=0.8, rely=0.4)
-    tamanhoP = Button(frame2, text='P', background='Black', foreground='White', relief='flat')
-    tamanhoP.place(relx=0.8, rely=0.5)
-    tamanhoM = Button(frame2, text='M', background='Black', foreground='White', relief='flat')
-    tamanhoM.place(relx=0.85, rely=0.5)
-    tamanhoG = Button(frame2, text='G', background='Black', foreground='White', relief='flat')
-    tamanhoG.place(relx=0.9, rely=0.5)
-    tamanhoGG = Button(frame2, text='GG', background='Black', foreground='White', relief='flat')
-    tamanhoGG.place(relx=0.95, rely=0.5)
-    tamanhoP.configure(font=('Italic', 20))
-    tamanhoM.configure(font=('Italic', 20))
-    tamanhoG.configure(font=('Italic', 20))
-    tamanhoGG.configure(font=('Italic', 20))
+    tamanho_roupa = Label(frame2, textvariable= tamanho_roupaVar)
+    tamanho_roupa.place(relx=0.85, rely=0.5)
+    aumentar_tamanho = Button(frame2, text='+', background='Black', foreground='White', relief='flat', command= lambda: aumentar_tamanho_roupa())
+    aumentar_tamanho.place(relx=0.9, rely=0.5)
+    diminuir_tamanho = Button(frame2, text='-', background='Black', foreground='White', relief='flat', command= lambda: diminuir_tamanho_roupa())
+    diminuir_tamanho.place(relx=0.8, rely=0.5)
 
     frete = Label(text='Calcule o frete', background='Black', foreground='White', relief='flat')
     frete.place(relx=0.8, rely=0.65)
@@ -202,19 +227,19 @@ def modelo_roupa(janela):
     comprar.place(relx=0.7, rely=0.75)
     comprar.configure(font=('Italic', 20))
 
-def modelo_caneca(janela):
+def comprar_caneca(janela):
     frame2 = Frame(janela, background='Black')
     frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
     fontE = tkFont.Font(family="Arial", size=14, weight="bold")
     fontSeparador = tkFont.Font(family='Arial', size=17)
 
-    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_camisa(janela))
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_caneca(janela))
     canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
+    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_moletom(janela))
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
@@ -280,13 +305,13 @@ def cartao(janela):
     fontE = tkFont.Font(family="Arial", size=14, weight="bold")
     fontSeparador = tkFont.Font(family='Arial', size=30)
 
-    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_camisa(janela))
     camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat')
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_caneca(janela))
     canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
 
-    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat')
+    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_moletom(janela))
     moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
 
     separar1 = Label(frame2, text='|', background='Black', foreground='White')
@@ -369,6 +394,56 @@ def cartao(janela):
     termos.place(relx=0.62, rely=0.83)
     finalizar = Button(frame2, text='Finalizar pedido', background='Black', foreground='White', relief='flat')
     finalizar.place(relx=0.75, rely=0.9)
+
+def modelo_camisa(janela):
+    frame2 = Frame(janela, background='Black')
+    frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
+    
+    fontE = tkFont.Font(family="Arial", size=14, weight="bold")
+    fontSeparador = tkFont.Font(family='Arial', size=17)
+
+    camisas = Button(frame2, text='Camisas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_camisa(janela))
+    camisas.place(relx=0.345, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    canecas = Button(frame2, text='Canecas', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_caneca(janela))
+    canecas.place(relx=0.561, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    moletom = Button(frame2, text='Moletons', background='Black', foreground='White', cursor='hand2', relief='flat', command= lambda: modelo_moletom(janela))
+    moletom.place(relx=0.452, rely=0.01, relwidth=0.085, relheight=0.08)
+
+    separar1 = Label(frame2, text='|', background='Black', foreground='White')
+    separar1.place(relx=0.437, rely=0.01)
+    separar1.configure(font=(fontSeparador))
+    separar2 = Label(frame2, text='|', background='Black', foreground='White')
+    separar2.place(relx=0.546, rely=0.01)
+    separar2.configure(font=(fontSeparador))
+
+    canecas.configure(font=(fontE))
+    camisas.configure(font=(fontE))
+    moletom.configure(font=(fontE))
+
+    camisa = Label(frame2, text='Camisas', background='Black', foreground='White')
+    camisa.place(relx=0.2, rely=0.25)
+
+    camiseta_modelo1 = PhotoImage(file='Imagens/Camisa.png')
+    camisa1 = Button(frame2, image= camiseta_modelo1, command= comprar_roupa(janela))
+    camisa1.place(relx=0.05, rely=0.35)
+
+    camiseta_modelo2 = PhotoImage(file='Imagens/Camisa.png')
+    camisa2 = Button(frame2, image= camiseta_modelo2)
+    camisa2.place(relx=0.25, rely=0.35)
+
+    camiseta_modelo3 = PhotoImage(file='Imagens/Camisa.png')
+    camisa3 = Button(frame2, image= camiseta_modelo3)
+    camisa3.place(relx=0.45, rely=0.35)
+
+    camiseta_modelo4 = PhotoImage(file='Imagens/Camisa.png')
+    camisa4 = Button(frame2, image= camiseta_modelo4)
+    camisa4.place(relx=0.65, rely=0.35)
+
+    camiseta_modelo5 = PhotoImage(file='Imagens/Camisa.png')
+    camisa5 = Button(frame2, image= camiseta_modelo5)
+    camisa5.place(relx=0.85, rely=0.35)
 
 paginaInicial()
 
