@@ -807,12 +807,12 @@ def isLoged(email, password):
     global logado, erro_login_texto
     dicionario = {'e-mail': email, 'senha': password}
     linha = 0
-    arq = open('email.txt', 'r')
+    arq = open('Dados_cliente/email.txt', 'r')
     for i in arq:
         linha +=1
         i = i.replace(f'\n', '')
         if i == dicionario['e-mail']:
-            senhas = open('password.txt', 'r')
+            senhas = open('Dados_cliente/password.txt', 'r')
             lerSenha = senhas.readlines()
             lerSenha = lerSenha[linha-1].replace(f'\n', '')
             if lerSenha == dicionario['senha']:
@@ -975,10 +975,10 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
     valid_nome = verificar_nome(nome)
     if valid_senha == True and valid_email == True and valid_cpf == True and valid_nome == True:
         print('entrou')
-        emailCliente = open('email.txt', 'a')
-        passwordCliente = open('password.txt', 'a')
-        cpfCliente = open('cpf.txt', 'a')
-        nomeCliente = open('nome.txt', 'a')
+        emailCliente = open('Dados_cliente/email.txt', 'a')
+        passwordCliente = open('Dados_cliente/password.txt', 'a')
+        cpfCliente = open('Dados_cliente/cpf.txt', 'a')
+        nomeCliente = open('Dados_cliente/nome.txt', 'a')
         emailCliente.write(f'{email}\n')
         passwordCliente.write(f'{senha}\n')
         cpfCliente.write(f'{cpf}\n')
