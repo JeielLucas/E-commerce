@@ -64,6 +64,8 @@ moletom_pagina_inicial = PhotoImage(file='Imagens/Modelos/Modelo_Pagina_Inicial/
 caneca_pagina_inicial = PhotoImage(file='Imagens/Modelos/Modelo_Pagina_Inicial/caneca_pagina_inicial.png')
 
 #Imagens dos modelos
+camisas_modelos = ['Imagens/Modelos/Modelo_Camisas/camisa1_preto.png', 'Imagens/Modelos/Modelo_Camisas/camisa1_branco.png', 'Imagens/Modelos/Modelo_Camisas/camisa1_cinza.png', 'Imagens/Modelos/Modelo_Camisas/camisa2_preto.png', 'Imagens/Modelos/Modelo_Camisas/camisa2_branco.png', 'Imagens/Modelos/Modelo_Camisas/camisa2_cinza.png', 'Imagens/Modelos/Modelo_Camisas/camisa3_preto.png', 'Imagens/Modelos/Modelo_Camisas/camisa3_branco.png', 'Imagens/Modelos/Modelo_Camisas/camisa3_cinza.png', 'Imagens/Modelos/Modelo_Camisas/camisa4_preto.png', 'Imagens/Modelos/Modelo_Camisas/camisa4_branco.png', 'Imagens/Modelos/Modelo_Camisas/camisa4_cinza.png', 'Imagens/Modelos/Modelo_Camisas/camisa5_preto.png', 'Imagens/Modelos/Modelo_Camisas/camisa5_branco.png', 'Imagens/Modelos/Modelo_Camisas/camisa5_cinza.png']
+
 camiseta_modelo1 = PhotoImage(file='Imagens/Modelos/Modelo_Camisas/camisa1_preto.png')
 camiseta_modelo2 = PhotoImage(file='Imagens/Modelos/Modelo_Camisas/camisa2_preto.png')
 camiseta_modelo3 = PhotoImage(file='Imagens/Modelos/Modelo_Camisas/camisa3_preto.png')
@@ -84,12 +86,13 @@ caneca_modelo5 = PhotoImage(file='Imagens/Modelos/Modelo_Caneca/caneca5.png')
 
 #Comprar Roupas/Caneca
 imagem_tamanho_roupa = PhotoImage(file='Imagens/Modelos/Geral/tamanho_M.png') 
+imagens_tamanhos_roupas = ['Imagens/Modelos/Geral/tamanho_P.png', 'Imagens/Modelos/Geral/tamanho_M.png', 'Imagens/Modelos/Geral/tamanho_G.png', 'Imagens/Modelos/Geral/tamanho_GG.png']
 img_modelo = PhotoImage(file='Imagens/Decoracoes_pagina/Modelo.png')
 botao_comprar = PhotoImage(file='Imagens/Pagamento/Geral/comprar.png')
 botao_cor_branca = PhotoImage(file='Imagens/Modelos/Geral/botao_cor_branco.png')
 botao_cor_preto = PhotoImage(file='Imagens/Modelos/Geral/botao_cor_preto.png')
 botao_cor_cinza = PhotoImage(file='Imagens/Modelos/Geral/botao_cor_cinza.png')
-
+botoes_cores = ['Imagens/Modelos/Geral/botao_cor_branco.png', 'Imagens/Modelos/Geral/botao_cor_preto.png', 'Imagens/Modelos/Geral/botao_cor_cinza.png']
 #Login e cadastro
 imagens_entrada_login = PhotoImage(file='Imagens/Login_Cadastro/entrada_login.png')
 imagens_entrada_cadastro = PhotoImage(file='Imagens/Login_Cadastro/entrada_cadastro.png')
@@ -243,11 +246,11 @@ def aumentar_tamanho_roupa():
     else:
         contador +=1
     if contador == 1:
-        imagem_tamanho_roupa['file'] = 'Imagens/Modelos/Geral/tamanho_M.png'
+        imagem_tamanho_roupa['file'] = imagens_tamanhos_roupas[1]
     elif contador == 2:
-        imagem_tamanho_roupa['file'] = 'Imagens/Modelos/Geral/tamanho_G.png'
+        imagem_tamanho_roupa['file'] = imagens_tamanhos_roupas[2]
     elif contador == 3:
-        imagem_tamanho_roupa['file'] = 'Imagens/Modelos/Geral/tamanho_GG.png'
+        imagem_tamanho_roupa['file'] = imagens_tamanhos_roupas[3]
 
 def diminuir_tamanho_roupa():
     global contador
@@ -256,11 +259,11 @@ def diminuir_tamanho_roupa():
     else:
         contador -=1
     if contador == 0:
-        imagem_tamanho_roupa['file'] = 'Imagens/Modelos/Geral/tamanho_P.png'
+        imagem_tamanho_roupa['file'] = imagens_tamanhos_roupas[0]
     elif contador == 1:
-        imagem_tamanho_roupa['file'] = 'Imagens/Modelos/Geral/tamanho_M.png'
+        imagem_tamanho_roupa['file'] = imagens_tamanhos_roupas[1]
     elif contador == 2:
-        imagem_tamanho_roupa['file'] = 'Imagens/Modelos/Geral/tamanho_G.png'
+        imagem_tamanho_roupa['file'] = imagens_tamanhos_roupas[2]
 
 def aumentar_parcelas():
     global qnt_parcelas, qnt_parcelas_Var
@@ -282,39 +285,39 @@ def diminuir_parcelas():
 def trocar_cor_roupa(roupa, cor):
     if roupa == 'Camisa1':
         if cor == 'Preto':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa1_preto.png'
+            img_modelo['file'] = camisas_modelos[0]
         if cor == 'Branco':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa1_branco.png'
+            img_modelo['file'] = camisas_modelos[1]
         if cor == 'Cinza':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa1_cinza.png'
+            img_modelo['file'] = camisas_modelos[2]
     elif roupa == 'Camisa2':
         if cor == 'Preto':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa2_preto.png'
+            img_modelo['file'] = camisas_modelos[3]
         if cor == 'Branco':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa2_branco.png'
+            img_modelo['file'] = camisas_modelos[4]
         if cor == 'Cinza':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa2_cinza.png'
+            img_modelo['file'] = camisas_modelos[5]
     elif roupa == 'Camisa3':
         if cor == 'Preto':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa3_preto.png'
+            img_modelo['file'] = camisas_modelos[6]
         if cor == 'Branco':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa3_branco.png'
+            img_modelo['file'] = camisas_modelos[7]
         if cor == 'Cinza':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa3_cinza.png'
+            img_modelo['file'] = camisas_modelos[8]
     elif roupa == 'Camisa4':
         if cor == 'Preto':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa4_preto.png'
+            img_modelo['file'] = camisas_modelos[9]
         if cor == 'Branco':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa4_branco.png'
+            img_modelo['file'] = camisas_modelos[10]
         if cor == 'Cinza':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa4_cinza.png'
+            img_modelo['file'] = camisas_modelos[11]
     elif roupa == 'Camisa5':
         if cor == 'Preto':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa5_preto.png'
+            img_modelo['file'] = camisas_modelos[12]
         if cor == 'Branco':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa5_branco.png'
+            img_modelo['file'] = camisas_modelos[13]
         if cor == 'Cinza':
-            img_modelo['file'] = 'Imagens/Modelos/Modelo_Camisas/camisa5_cinza.png'
+            img_modelo['file'] = camisas_modelos[14]
 
 def modelo_camisa():
     menu_logado()
