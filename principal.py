@@ -7,8 +7,8 @@ from datetime import date
 qnt_parcelas = 1
 qnt_itens = 1
 contador = 1
-valor_roupa = 20
-valor_caneca = 34,99
+valor_roupa = 80.99
+valor_caneca = 34.99
 carrinho_finalizar = {'Roupa': 0, 'Caneca': 0}
 logado = False
 total_finalizar = 1
@@ -205,7 +205,7 @@ direitosAutorais.configure(font=('Arial', 16))
 direitosAutorais.place(relx=0.325, rely=0.32, relwidth=0.35, relheight=0.2)
 pagamento_texto = Label(frame3, text= 'Formas de pagamento', background='Black', foreground='White')
 pagamento_texto.place(relx=0.05, rely=0.2)
-pagamento_texto.configure(font=('Arial',1))
+pagamento_texto.configure(font=('Arial',14))
 rodape = PhotoImage(file='Imagens/Decoracoes_pagina/formas_pagamento.png')
 cartoes = Label(frame3, image=rodape, background='Black')
 cartoes.place(relx=0.05, rely=0.4)
