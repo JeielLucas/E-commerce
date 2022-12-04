@@ -802,7 +802,7 @@ def cadastro():
     validate_nome = Label(frame2, textvariable=erro_nome, background='Black', foreground='White')
     validate_nome.place(relx=0.1, rely=0.34)
 
-    data_nascimento_texto = Label(frame2, text='Data de nascimento: (Ex:dd/mm/aaaa)', background='Black', foreground='White')
+    data_nascimento_texto = Label(frame2, text='Data de nascimento:', background='Black', foreground='White')
     data_nascimento_texto.place(relx=0.1, rely=0.42)
     data_nascimento_texto.configure(font=('Arial', 13))
 
@@ -841,7 +841,7 @@ def cadastro():
     validate_email = Label(frame2, textvariable=erro_email_cadastro, background='Black', foreground='White')
     validate_email.place(relx=0.65, rely=0.34)
 
-    senha_texto = Label(frame2, text='Digite sua senha: (Min. 8 dígitos)', background='Black', foreground='White')
+    senha_texto = Label(frame2, text='Digite sua senha:', background='Black', foreground='White')
     senha_texto.place(relx=0.65, rely=0.42)
     senha_texto.configure(font=('Arial', 13))
 
@@ -869,7 +869,7 @@ def cadastro():
     cadastro.place(relx=0.745, rely=0.88)
 
     cadastro_realizado = Label(frame2, textvariable=cadastro_realizado_mensagem, background='Black', foreground='White')
-    cadastro_realizado.place(relx=0.75, rely=0.84)
+    cadastro_realizado.place(relx=0.748, rely=0.843)
 
 def isLoged(email, password):
     global logado, erro_login_texto
@@ -1121,7 +1121,7 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
     valid_nome = verificar_nome(nome)
     valid_data = data_nascimento(nascimento)
     if valid_senha == False:
-        erro_senha_cadastro.set('Senhas não conferem')
+        erro_senha_cadastro.set('Senhas não conferem  (Min. 8 dígitos)')
     else:
         erro_senha_cadastro.set('')
     if valid_email == False:
@@ -1139,7 +1139,7 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
     else:
         erro_nome.set('')
     if valid_data == False:
-        erro_data_cadastro.set('Data inválida')
+        erro_data_cadastro.set('Data inválida  Ex:dd/mm/aaaa')
     else:
         erro_data_cadastro.set('')
     if valid_senha == True and valid_email == True and valid_cpf == True and valid_nome == True and valid_data == True:
