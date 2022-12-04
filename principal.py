@@ -1400,7 +1400,7 @@ def pagamento():
     subtotal = Label(frame2, text='Sub-total', background='Black', foreground='White')
     subtotal.place(relx=0.6, rely= 0.5)
     subtotal.configure(font=('Arial', 15))
-    subtotal_valor = Label(frame2, text=f'R$ {total_finalizar}', background='Black', foreground='White')
+    subtotal_valor = Label(frame2, text="%.2f R$" % total_finalizar, background='Black', foreground='White')
     subtotal_valor.place(relx=0.8, rely=0.5)
     subtotal_valor.configure(font=('Arial', 15))
 
@@ -1414,7 +1414,7 @@ def pagamento():
     total = Label(frame2, text='Total', background='Black', foreground='White')
     total.place(relx=0.6, rely= 0.7)
     total.configure(font=('Arial', 15))
-    total_valor = Label(frame2, text=f'R$ {total_finalizar}', background='Black', foreground='White')
+    total_valor = Label(frame2, text="%.2f R$" % total_finalizar, background='Black', foreground='White')
     total_valor.place(relx=0.8, rely=0.7)
     total_valor.configure(font=('Arial', 15))
 
