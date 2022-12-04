@@ -16,7 +16,7 @@ total_finalizar = 0
 nome_modelo_texto = ''
 variavel = False
 cont1 = 1
-entrega_valida = False
+entrega_valida = True
 
 #Janela
 janela = Tk()
@@ -846,7 +846,7 @@ def cadastro():
     validate_email = Label(frame2, textvariable=erro_email_cadastro, background='Black', foreground='White')
     validate_email.place(relx=0.65, rely=0.34)
 
-    senha_texto = Label(frame2, text='Digite sua senha: (Min. 8 dígitos)', background='Black', foreground='White')
+    senha_texto = Label(frame2, text='Digite sua senha:', background='Black', foreground='White')
     senha_texto.place(relx=0.65, rely=0.42)
     senha_texto.configure(font=('Arial', 13))
 
@@ -874,7 +874,7 @@ def cadastro():
     cadastro.place(relx=0.745, rely=0.88)
 
     cadastro_realizado = Label(frame2, textvariable=cadastro_realizado_mensagem, background='Black', foreground='White')
-    cadastro_realizado.place(relx=0.75, rely=0.84)
+    cadastro_realizado.place(relx=0.748, rely=0.843)
 
 def isLoged(email, password):
     global logado, erro_login_texto
@@ -1127,7 +1127,7 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
     valid_nome = verificar_nome(nome)
     valid_data = data_nascimento(nascimento)
     if valid_senha == False:
-        erro_senha_cadastro.set('Senhas não conferem')
+        erro_senha_cadastro.set('Senhas não conferem  (Min. 8 dígitos)')
     else:
         erro_senha_cadastro.set('')
     if valid_email == False:
@@ -1145,7 +1145,7 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
     else:
         erro_nome.set('')
     if valid_data == False:
-        erro_data_cadastro.set('Data inválida')
+        erro_data_cadastro.set('Data inválida  Ex:dd/mm/aaaa')
     else:
         erro_data_cadastro.set('')
     if valid_senha == True and valid_email == True and valid_cpf == True and valid_nome == True and valid_data == True:
@@ -1434,7 +1434,6 @@ def marcar_botao_pagamento():
 
 def pagamento_pix():
     global erro_carrinho_vazio
-    erro_termos_uso.set('')
     menu_logado()
     if total_finalizar > 0:
         erro_carrinho_vazio.set('')
@@ -1501,7 +1500,9 @@ def pagamento_pix():
         termos.place(relx=0.575, rely=0.762)
         termos.configure(font=('Arial', 12))
         erro_termos = Label(frame2, textvariable=erro_termos_uso, background='Black', foreground='White')
-        erro_termos.place(relx=0.3, rely=0.3)
+        erro_termos.place(relx=0.64, rely=0.805)
+        erro_termos.configure(font=('Arial', 11))
+        
         finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
         finalizar.place(relx=0.645, rely=0.85)
     else:
@@ -1607,7 +1608,8 @@ def pagamento_boleto():
         termos.place(relx=0.575, rely=0.762)
         termos.configure(font=('Arial', 12))
         erro_termos = Label(frame2, textvariable=erro_termos_uso, background='Black', foreground='White')
-        erro_termos.place(relx=0.3, rely=0.3)
+        erro_termos.place(relx=0.64, rely=0.805)
+        erro_termos.configure(font=('Arial', 11))
 
         finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_dados_boleto(nome_entrada.get(), sobrenome_entrada.get(), documento_entrada.get()))
         finalizar.place(relx=0.645, rely=0.85)
@@ -1753,7 +1755,7 @@ def pagamento_cartao():
         numero_cartao_entrada.place(relx=0.565, rely=0.42, relwidth=0.145, relheight=0.028)
         numero_cartao_entrada.configure(font=(fonteDados))
         numero_cartao_erro = Label(frame2, textvariable=erro_numero_cartao, background='Black', foreground='White')
-        numero_cartao_erro.place(relx=0.555, rely=0.4)
+        numero_cartao_erro.place(relx=0.555, rely=0.38)
 
         nome = Label(frame2, text='Nome', background='Black', foreground='White')
         nome.place(relx=0.75, rely=0.28)
@@ -1764,7 +1766,7 @@ def pagamento_cartao():
         nome_entrada.place(relx=0.754, rely=0.42, relwidth=0.145, relheight=0.028)
         nome_entrada.configure(font=(fonteDados))
         nome_cartao_erro = Label(frame2, textvariable=erro_nome, background='Black', foreground='White')
-        nome_cartao_erro.place(relx=0.75, rely=0.4)
+        nome_cartao_erro.place(relx=0.75, rely=0.38)
 
         vencimento = Label(frame2, text='Data de vencimento', background='Black', foreground='White')
         vencimento.place(relx=0.555, rely=0.45)
@@ -1775,7 +1777,7 @@ def pagamento_cartao():
         vencimento_entrada.place(relx=0.562, rely=0.538, relwidth=0.039, relheight=0.0275)
         vencimento_entrada.configure(font=(fonteDados))
         data_cartao_erro = Label(frame2, textvariable=erro_data_cartao, background='Black', foreground='White')
-        data_cartao_erro.place(relx=0.555, rely=0.55)
+        data_cartao_erro.place(relx=0.555, rely=0.568)
 
         codigo = Label(frame2, text='Código de segurança', background='Black', foreground='White')
         codigo.place(relx=0.75, rely=0.45)
@@ -1786,7 +1788,7 @@ def pagamento_cartao():
         codigo_entrada.place(relx=0.759, rely=0.538, relwidth=0.035, relheight=0.0275)
         codigo_entrada.configure(font=(fonteDados))
         cvv_cartao_erro = Label(frame2, textvariable=erro_cvv_cartao, background='Black', foreground='White')
-        cvv_cartao_erro.place(relx=0.75, rely=0.55)
+        cvv_cartao_erro.place(relx=0.75, rely=0.568)
 
         id = Label(frame2, text='CPF', background='Black', foreground='White')
         id.place(relx=0.555, rely=0.605)
@@ -1797,7 +1799,7 @@ def pagamento_cartao():
         cpf_entrada.place(relx=0.562, rely=0.63, relwidth=0.118, relheight=0.028)
         cpf_entrada.configure(font=(fonteDados))
         cpf_cartao_erro = Label(frame2, textvariable=erro_cpf_cadastro, background='Black', foreground='White')
-        cpf_cartao_erro.place(relx=0.555, rely=0.72)
+        cpf_cartao_erro.place(relx=0.555, rely=0.71)
 
         parcelas = Label(frame2, text='Parcelas', background='Black', foreground='White')
         parcelas.place(relx=0.75, rely=0.6)
@@ -1820,8 +1822,9 @@ def pagamento_cartao():
         termos.place(relx=0.575, rely=0.762)
         termos.configure(font=('Arial', 12))
         erro_termos = Label(frame2, textvariable=erro_termos_uso, background='Black', foreground='White')
-        erro_termos.place(relx=0.3, rely=0.3)
-        
+        erro_termos.place(relx=0.64, rely=0.805)
+        erro_termos.configure(font=('Arial', 11))
+
         finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_dados_cartao(numero_cartao_entrada.get(), nome_entrada.get(), vencimento_entrada.get(), codigo_entrada.get(), cpf_entrada.get()))
         finalizar.place(relx=0.645, rely=0.85)
     else:
