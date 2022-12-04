@@ -1666,8 +1666,6 @@ def verificar_dados_boleto(nome, sobrenome, cpf):
                 digito2 = 11 - resto
             if digito2 == int(cpf[10]):
                 valid_cpf = True
-    if valid_cpf == True and valid_sobrenome == True and valid_nome == True:
-        verificar_login_finalizar_pedido()
     if valid_cpf == False:
         erro_cpf_cadastro.set('CPF em formato inválido')
     else:
@@ -1683,7 +1681,7 @@ def verificar_dados_boleto(nome, sobrenome, cpf):
     if entrega_valida == True:
         if valid_nome == True and valid_sobrenome == True and valid_cpf == True:
             verificar_login_finalizar_pedido()
-    else:
+    elif entrega_valida == False:
         endereco()
 
 def pagamento_cartao():
