@@ -7,11 +7,12 @@ from datetime import date
 qnt_parcelas = 1
 qnt_itens = 1
 contador = 1
-valor_roupa = 80.99
+valor_camisa = 59.99
+valor_moletom = 89.99
 valor_caneca = 34.99
-carrinho_finalizar = {'Roupa': 0, 'Caneca': 0}
+carrinho_finalizar = {'Camisa': 0, 'Moletom':0, 'Caneca': 0}
 logado = False
-total_finalizar = 1
+total_finalizar = 0
 nome_modelo_texto = ''
 variavel = False
 cont1 = 1
@@ -102,6 +103,11 @@ imagem_botao_login = PhotoImage(file='Imagens/Login_Cadastro/login.png')
 imagem_seta = PhotoImage(file='Imagens/Login_Cadastro/seta.png')
 imagem_botao_cadastrar = PhotoImage(file='Imagens/Login_Cadastro/cadastrar.png')
 
+#Endereço
+imagem_entrada_media = PhotoImage(file='Imagens/Pagamento/Endereco/entrada_media.png')
+imagem_entrada_num = PhotoImage(file='Imagens/Pagamento/Endereco/entrada_num.png')
+imagens_entrada_end = PhotoImage(file='Imagens/Pagamento/Endereco/entrada_endereco.png')
+
 # Imagens de entrega e pagamento
 botao_pagamento = PhotoImage(file='Imagens/Pagamento/Geral/botao.png')
 botao_pagamento_selecionado = PhotoImage(file='Imagens/Pagamento/Geral/botao_selecionado.png')
@@ -122,6 +128,7 @@ numero_cartao_credito = PhotoImage(file='Imagens/Pagamento/Cartao/numero_cartao.
 vencimento_cvc = PhotoImage(file='Imagens/Pagamento/Cartao/vencimento_cartao.png')
 cpf_cartao = PhotoImage(file='Imagens/Pagamento/Cartao/cpf_cartao.png')
 parcelas_cartao = PhotoImage(file='Imagens/Pagamento/Cartao/parcelas_cartao.png')
+img_botao_finalizar = PhotoImage(file='Imagens/Pagamento/Geral/finalizar.png')
 
 #Finalizacao
 finalizar_imagem = PhotoImage(file='Imagens/Decoracoes_pagina/compra_finalizada.png')
@@ -224,11 +231,13 @@ def zerar_quantidade():
     qnt_itensVar.set(qnt_itens)
 
 def adicionar_item_carrinho(item):
-    global qnt_itens, total_finalizar, valor_roupa, valor_caneca
+    global qnt_itens, total_finalizar, valor_camisa, valor_moletom, valor_caneca
     carrinho_finalizar[item] += qnt_itens
-    if item == 'Roupa':
-        total_finalizar += carrinho_finalizar[item] * valor_roupa
-    else: 
+    if item == 'Camisa':
+        total_finalizar += carrinho_finalizar[item] * valor_camisa
+    elif item == 'Moletom':
+        total_finalizar += carrinho_finalizar[item] * valor_moletom
+    elif item == 'Caneca': 
         total_finalizar += carrinho_finalizar[item] * valor_caneca
     carrinho_finalizar[item] = 0
 
@@ -398,19 +407,19 @@ def modelo_moletom():
     moletom.place(relx=0.05, rely=0.22)
     moletom.configure(font=(fontE))
 
-    moletom1 = Button(frame2, image= moletom_modelo1, background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom1')])
+    moletom1 = Button(frame2, image= moletom_modelo1, background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom1')])
     moletom1.place(relx=0.03, rely=0.35)
 
-    moletom2 = Button(frame2, image= moletom_modelo2, background='Black',bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom2')])
+    moletom2 = Button(frame2, image= moletom_modelo2, background='Black',bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom2')])
     moletom2.place(relx=0.23, rely=0.35)
 
-    moletom3 = Button(frame2, image= moletom_modelo3, background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom3')])
+    moletom3 = Button(frame2, image= moletom_modelo3, background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom3')])
     moletom3.place(relx=0.43, rely=0.35)
 
-    moletom4 = Button(frame2, image= moletom_modelo4, background='Black',bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom4')])
+    moletom4 = Button(frame2, image= moletom_modelo4, background='Black',bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom4')])
     moletom4.place(relx=0.63, rely=0.35)
 
-    moletom5 = Button(frame2, image= moletom_modelo5,background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom5')])
+    moletom5 = Button(frame2, image= moletom_modelo5,background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_moletom('Moletom5')])
     moletom5.place(relx=0.83, rely=0.35)
 
 def modelo_caneca():
@@ -442,19 +451,19 @@ def modelo_caneca():
     caneca.place(relx=0.05, rely=0.22)
     caneca.configure(font=(fontE))
 
-    caneca1 = Button(frame2, image= caneca_modelo1, background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca1')])
+    caneca1 = Button(frame2, image= caneca_modelo1, background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca1')])
     caneca1.place(relx=0.015, rely=0.35)
     #0.05 0.35
-    caneca2 = Button(frame2, image= caneca_modelo2, background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca2')])
+    caneca2 = Button(frame2, image= caneca_modelo2, background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca2')])
     caneca2.place(relx=0.215, rely=0.35)
     #0.25 0.35
-    caneca3 = Button(frame2, image= caneca_modelo3, background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca3')])
+    caneca3 = Button(frame2, image= caneca_modelo3, background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca3')])
     caneca3.place(relx=0.415, rely=0.35)
     #0.45 0.35
-    caneca4 = Button(frame2, image= caneca_modelo4, background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca4')])
+    caneca4 = Button(frame2, image= caneca_modelo4, background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca4')])
     caneca4.place(relx=0.615, rely=0.35)
     #0.65 0.35
-    caneca5 = Button(frame2, image= caneca_modelo5, background='Black', bd=0, activebackground='Black', activeforeground='White', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca5')])
+    caneca5 = Button(frame2, image= caneca_modelo5, background='Black', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: [zerar_quantidade(), comprar_caneca('Caneca5')])
     caneca5.place(relx=0.815, rely=0.35)
 
 # Página 3
@@ -507,49 +516,55 @@ def comprar_camisa(modelo):
     nome_modelo.place(relx=0.35, rely=0.25)
     nome_modelo.configure(font=(fonteModelos, 22))
 
-    valor_modelo = Label(frame2, text='R$89,99', background='Black', foreground='White')
+    valor_modelo = Label(frame2, text='R$59,99', background='Black', foreground='White')
     valor_modelo.place(relx=0.35, rely=0.33)
     valor_modelo.configure(font=(fonteModelos, 16))
 
     cor = Label(frame2, text='Cores', background='Black', foreground='White')
     cor.place(relx=0.35, rely=0.42)
     cor.configure(font=(fonteModelos, 12))
-    cor_preto = Button(frame2, image=botao_cor_preto, background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White', command= lambda: trocar_cor_roupa(modelo, 'Preto'))
+    cor_preto = Button(frame2, image=botao_cor_preto, background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: trocar_cor_roupa(modelo, 'Preto'))
     cor_preto.place(relx=0.35, rely=0.47)
-    cor_branca = Button(frame2, image=botao_cor_branca, background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White', command= lambda: trocar_cor_roupa(modelo, 'Branco'))
+    cor_branca = Button(frame2, image=botao_cor_branca, background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: trocar_cor_roupa(modelo, 'Branco'))
     cor_branca.place(relx=0.4, rely=0.47)
-    cor_cinza = Button(frame2, image=botao_cor_cinza, background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White', command= lambda: trocar_cor_roupa(modelo, 'Cinza'))
+    cor_cinza = Button(frame2, image=botao_cor_cinza, background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: trocar_cor_roupa(modelo, 'Cinza'))
     cor_cinza.place(relx=0.45, rely=0.47)
 
     quantidade = Label(frame2, text='Quantidade', background='Black', foreground='White')
     quantidade.place(relx=0.35, rely=0.65)
     quantidade.configure(font=(fonteModelos, 12))
 
-    #precisamos aumentar o tamanho dos botoes
-    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',command= lambda: diminuir_qnt_roupa())
+    botao_qtd = Label(frame2, image=imagem_botao_numero, background='Black')
+    botao_qtd.place(relx=0.392, rely=0.705)
+    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2',command= lambda: diminuir_qnt_roupa())
     diminuir_quantidade.place(relx=0.35, rely=0.72)
-    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',command= lambda: aumentar_qnt_roupa())
+    diminuir_quantidade.configure(font=('Arial', 24))
+    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2',command= lambda: aumentar_qnt_roupa())
     aumentar_quantidade.place(relx=0.45, rely=0.72)
+    aumentar_quantidade.configure(font=('Arial', 24))
+
     qnt_itens = Label(frame2, textvariable=qnt_itensVar)
-    qnt_itens.place(relx=0.4, rely=0.72)
+    qnt_itens.configure(font=('Arial', 16))
+    qnt_itens.place(relx=0.405, rely=0.73)
 
     tamanho = Label(frame2, text='Tamanho', background='Black', foreground='White')
     tamanho.place(relx=0.67, rely=0.42)
     tamanho.configure(font=(fonteModelos, 12))
     tamanho_roupa = Label(frame2, image=imagem_tamanho_roupa, background='Black')
-    tamanho_roupa.place(relx=0.69, rely=0.47)
-    aumentar_tamanho = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: aumentar_tamanho_roupa())
-    aumentar_tamanho.place(relx=0.74, rely=0.5)
-    diminuir_tamanho = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: diminuir_tamanho_roupa())
-    diminuir_tamanho.place(relx=0.67, rely=0.5)
+    tamanho_roupa.place(relx=0.715, rely=0.47)
+    aumentar_tamanho = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: aumentar_tamanho_roupa())
+    aumentar_tamanho.place(relx=0.78, rely=0.495)
+    aumentar_tamanho.configure(font=('Arial', 24))
+    diminuir_tamanho = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: diminuir_tamanho_roupa())
+    diminuir_tamanho.place(relx=0.67, rely=0.495)
+    diminuir_tamanho.configure(font=('Arial', 24))
 
     frete = Label(text='Frete grátis para todo Brasil', background='Black', foreground='White', relief='flat')
     frete.place(relx=0.67, rely=0.65)
     frete.configure(font=(fonteModelos, 12))
 
-    comprar = Button(image=botao_comprar, background='Black', bd=0, activebackground='Black', command= lambda: [adicionar_item_carrinho('Roupa'), endereco()])
+    comprar = Button(image=botao_comprar, background='Black', bd=0, activebackground='Black',cursor='hand2', command= lambda: [adicionar_item_carrinho('Camisa'), endereco()])
     comprar.place(relx=0.55, rely=0.75)
-
 
 def comprar_moletom(modelo):
     menu_logado()
@@ -607,14 +622,17 @@ def comprar_moletom(modelo):
     quantidade.place(relx=0.6, rely=0.45)
     quantidade.configure(font=(fonteModelos, 12))
 
-    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',command= lambda: diminuir_qnt_roupa())
+    botao_qtd = Label(frame2, image=imagem_botao_numero, background='Black')
+    botao_qtd.place(relx=0.64, rely=0.5)
+    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2',command= lambda: diminuir_qnt_roupa())
     diminuir_quantidade.place(relx=0.595, rely=0.51)
     diminuir_quantidade.configure(font=('Arial', 24))
-    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',command= lambda: aumentar_qnt_roupa())
+    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2',command= lambda: aumentar_qnt_roupa())
     aumentar_quantidade.place(relx=0.705, rely=0.51)
     aumentar_quantidade.configure(font=('Arial', 24))
     qnt_itens = Label(frame2, textvariable=qnt_itensVar)
-    qnt_itens.place(relx=0.65, rely=0.55)
+    qnt_itens.configure(font=('Arial', 16))
+    qnt_itens.place(relx=0.653, rely=0.53)
 
     tamanho = Label(frame2, text='Tamanho', background='Black', foreground='White')
     tamanho.place(relx=0.35, rely=0.45)
@@ -622,10 +640,10 @@ def comprar_moletom(modelo):
 
     tamanho_roupa = Label(frame2, image=imagem_tamanho_roupa, background='Black')
     tamanho_roupa.place(relx=0.39, rely=0.5)
-    aumentar_tamanho = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: aumentar_tamanho_roupa())
+    aumentar_tamanho = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: aumentar_tamanho_roupa())
     aumentar_tamanho.place(relx=0.455, rely=0.51)
     aumentar_tamanho.configure(font=('Arial', 24))
-    diminuir_tamanho = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: diminuir_tamanho_roupa())
+    diminuir_tamanho = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: diminuir_tamanho_roupa())
     diminuir_tamanho.configure(font=('Arial', 24))
     diminuir_tamanho.place(relx=0.345, rely=0.51)
 
@@ -633,9 +651,8 @@ def comprar_moletom(modelo):
     frete.place(relx=0.35, rely=0.68)
     frete.configure(font=(fonteModelos, 12))
 
-    comprar = Button(image=botao_comprar, background='Black', bd=0, activebackground='Black', command= lambda: [adicionar_item_carrinho('Roupa'), endereco()])
+    comprar = Button(image=botao_comprar, background='Black', bd=0, activebackground='Black',cursor='hand2', command= lambda: [adicionar_item_carrinho('Moletom'), endereco()])
     comprar.place(relx=0.52, rely=0.75)
-
 
 def comprar_caneca(modelo):
     menu_logado()
@@ -695,10 +712,10 @@ def comprar_caneca(modelo):
 
     botao_qtd = Label(frame2, image=imagem_botao_numero, background='Black')
     botao_qtd.place(relx=0.39, rely=0.5)
-    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',command= lambda: diminuir_qnt_roupa())
+    diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2',command= lambda: diminuir_qnt_roupa())
     diminuir_quantidade.place(relx=0.345, rely=0.51)
     diminuir_quantidade.configure(font=('Arial', 24))
-    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',command= lambda: aumentar_qnt_roupa())
+    aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2',command= lambda: aumentar_qnt_roupa())
     aumentar_quantidade.place(relx=0.455, rely=0.51)
     aumentar_quantidade.configure(font=('Arial', 24))
     qnt_itens = Label(frame2, textvariable=qnt_itensVar)
@@ -710,7 +727,7 @@ def comprar_caneca(modelo):
     frete.place(relx=0.35, rely=0.68)
     frete.configure(font=(fonteModelos, 12))
 
-    comprar = Button(image=botao_comprar, background='Black', bd=0, activebackground='Black', command= lambda: [adicionar_item_carrinho('Roupa'), endereco()])
+    comprar = Button(image=botao_comprar, background='Black', bd=0, activebackground='Black',cursor='hand2', command= lambda: [adicionar_item_carrinho('Caneca'), endereco()])
     comprar.place(relx=0.52, rely=0.75)
 
 # Login e cadastro
@@ -730,7 +747,7 @@ def login():
     imagem_entrada_login_email.place(relx=0.123, rely=0.35)
     email = Entry()
     email.place(relx= 0.14, rely=0.445, relwidth=0.235, relheight=0.04)
-    email.configure(font=(14))
+    email.configure(font=(fonteDados))
 
     passText = Label(frame2, text='Senha:', background='Black', foreground='White')
     passText.configure(font=(fontLogin))
@@ -739,7 +756,7 @@ def login():
     imagem_entrada_login_senha.place(relx=0.123, rely=0.62)
     password = Entry(show='*')
     password.place(relx= 0.14, rely=0.62, relwidth=0.235, relheight=0.04)
-    password.configure(font=(16))
+    password.configure(font=(fonteDados))
     erro_login = Label(frame2, textvariable=erro_login_texto, background='Black', foreground='White')
     erro_login.place(relx=0.18, rely=0.73)
     erro_login.configure(font=(30))
@@ -754,7 +771,7 @@ def login():
     texto_para_cadastro = Label(frame2, text='Não tem uma conta?', background='Black', foreground='#2CFFF8')
     texto_para_cadastro.place(relx= 0.68, rely=0.3, relwidth=0.22, relheight=0.2)
     texto_para_cadastro.configure(font=('Arial', 26))
-    botao_de_cadastro = Button(frame2, text='Cadastre-se aqui', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: cadastro())
+    botao_de_cadastro = Button(frame2, text='Cadastre-se aqui', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: cadastro())
     botao_de_cadastro.configure(font=('Corbel', 26))
     botao_de_cadastro.place(relx= 0.7, rely=0.5, relwidth=0.18, relheight=0.15)
 
@@ -774,31 +791,31 @@ def cadastro():
     infoLogin.configure(font=(fontE))
 
     nome_completo_texto = Label(frame2, text='Nome completo:', background='Black', foreground='White')
-    nome_completo_texto.place(relx=0.1, rely=0.17)
+    nome_completo_texto.place(relx=0.1, rely=0.18)
     nome_completo_texto.configure(font=('Arial', 13))
 
     nome_completo = Entry()
     nome_completo.configure(font=(fonteDados))
-    nome_completo.place(relx=0.1, rely=0.36, relwidth=0.3)
+    nome_completo.place(relx=0.1, rely=0.37, relwidth=0.3)
     imagem_entrada_cadastro_nome = Label(frame2, image=imagens_entrada_cadastro, background='Black')
-    imagem_entrada_cadastro_nome.place(relx=0.08, rely=0.21)
+    imagem_entrada_cadastro_nome.place(relx=0.08, rely=0.22)
     validate_nome = Label(frame2, textvariable=erro_nome, background='Black', foreground='White')
     validate_nome.place(relx=0.1, rely=0.34)
 
-    data_nascimento_texto = Label(frame2, text='Data de nascimento:', background='Black', foreground='White')
-    data_nascimento_texto.place(relx=0.1, rely=0.37)
+    data_nascimento_texto = Label(frame2, text='Data de nascimento: (Ex:dd/mm/aaaa)', background='Black', foreground='White')
+    data_nascimento_texto.place(relx=0.1, rely=0.42)
     data_nascimento_texto.configure(font=('Arial', 13))
 
     data_nascimento = Entry()
     data_nascimento.configure(font=(fonteDados))
-    data_nascimento.place(relx=0.1, rely=0.49, relwidth=0.3)
+    data_nascimento.place(relx=0.1, rely=0.53, relwidth=0.3)
     imagem_entrada_cadastro_data = Label(frame2, image=imagens_entrada_cadastro, background='Black')
-    imagem_entrada_cadastro_data.place(relx=0.08, rely=0.41)
+    imagem_entrada_cadastro_data.place(relx=0.08, rely=0.46)
     validate_data = Label(frame2, textvariable=erro_data_cadastro, background='Black', foreground='White')
-    validate_data.place(relx=0.1, rely=0.55)
+    validate_data.place(relx=0.1, rely=0.58)
 
     cpf_texto = Label(frame2, text='Digite seu cpf:', background='Black', foreground='White')
-    cpf_texto.place(relx=0.1, rely=0.6)
+    cpf_texto.place(relx=0.1, rely=0.66)
     cpf_texto.configure(font=('Arial', 13))
 
     cpf = Entry()
@@ -809,29 +826,32 @@ def cadastro():
     validate_cpf = Label(frame2, textvariable=erro_cpf_cadastro, background='Black', foreground='White')
     validate_cpf.place(relx=0.1, rely=0.82)
 
+    separar = Label(frame2, text='')
+    separar.place(relx=0.55, rely=0.1, relheight=0.8, relwidth=0.001)
+
     email_texto = Label(frame2, text='Digite seu email:', background='Black', foreground='White')
-    email_texto.place(relx=0.65, rely=0.15)
+    email_texto.place(relx=0.65, rely=0.18)
     email_texto.configure(font=('Arial', 13))
 
     email = Entry()
     email.configure(font=(fonteDados))
-    email.place(relx=0.65, rely=0.35, relwidth=0.3)
+    email.place(relx=0.65, rely=0.37, relwidth=0.3)
     imagem_entrada_cadastro_email = Label(frame2, image=imagens_entrada_cadastro, background='Black')
-    imagem_entrada_cadastro_email.place(relx=0.63, rely=0.19)
+    imagem_entrada_cadastro_email.place(relx=0.63, rely=0.22)
     validate_email = Label(frame2, textvariable=erro_email_cadastro, background='Black', foreground='White')
-    validate_email.place(relx=0.65, rely=0.32)
+    validate_email.place(relx=0.65, rely=0.34)
 
-    senha_texto = Label(frame2, text='Digite sua senha:', background='Black', foreground='White')
-    senha_texto.place(relx=0.65, rely=0.37)
+    senha_texto = Label(frame2, text='Digite sua senha: (Min. 8 dígitos)', background='Black', foreground='White')
+    senha_texto.place(relx=0.65, rely=0.42)
     senha_texto.configure(font=('Arial', 13))
 
     password = Entry()
     password.configure(font=(fonteDados))
-    password.place(relx=0.65, rely=0.5, relwidth=0.3)
+    password.place(relx=0.65, rely=0.53, relwidth=0.3)
     imagem_entrada_cadastro_senha = Label(frame2, image=imagens_entrada_cadastro, background='Black')
-    imagem_entrada_cadastro_senha.place(relx=0.63, rely=0.42)
+    imagem_entrada_cadastro_senha.place(relx=0.63, rely=0.46)
     validate_senha = Label(frame2, textvariable=erro_senha_cadastro, background='Black', foreground='White')
-    validate_senha.place(relx=0.65, rely=0.55)
+    validate_senha.place(relx=0.65, rely=0.58)
     
     confirmar_senha_texto = Label(frame2, text='Digite sua senha novamente:', background='Black', foreground='White')
     confirmar_senha_texto.place(relx=0.65, rely=0.66)
@@ -845,11 +865,11 @@ def cadastro():
     conf_senha = Label(frame2, textvariable=erro_senha_cadastro, background='Black', foreground='White')
     conf_senha.place(relx=0.65, rely=0.82)
 
-    cadastro = Button(frame2, image=imagem_botao_cadastrar, background='Black',  relief='flat', bd=0, activebackground='Black', activeforeground='White', command=lambda: dados(password.get(), confPassword.get(), email.get(), cpf.get(), nome_completo.get(), data_nascimento.get()))
-    cadastro.place(relx=0.75, rely=0.88)
+    cadastro = Button(frame2, image=imagem_botao_cadastrar, background='Black',  relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command=lambda: dados(password.get(), confPassword.get(), email.get(), cpf.get(), nome_completo.get(), data_nascimento.get()))
+    cadastro.place(relx=0.745, rely=0.88)
 
     cadastro_realizado = Label(frame2, textvariable=cadastro_realizado_mensagem, background='Black', foreground='White')
-    cadastro_realizado.place(relx=0.72, rely=0.85)
+    cadastro_realizado.place(relx=0.75, rely=0.84)
 
 def isLoged(email, password):
     global logado, erro_login_texto
@@ -1176,45 +1196,74 @@ def endereco():
     titulo.configure(font=(fontE))
 
     cep = Label(frame2, text='CEP', background='Black', foreground='White')
-    cep.place(relx=0.15, rely=0.3)
+    cep.place(relx=0.15, rely=0.245)
+    cep.configure(font=('Arial', 13))
+    imagem_entrada_tela_cep = Label(frame2, image=imagem_entrada_media, background='Black')
+    imagem_entrada_tela_cep.place(relx=0.15, rely=0.285)
     cep_entrada = Entry()
-    cep_entrada.place(relx=0.15, rely=0.45)
+    cep_entrada.configure(font=(fonteDados))
+    cep_entrada.place(relx=0.16, rely=0.4, relheight=0.030, relwidth=0.13)
 
     endereco = Label(frame2, text='Endereço', background='Black', foreground='White')
-    endereco.place(relx=0.15, rely=0.55)
+    endereco.place(relx=0.15, rely=0.445)
+    endereco.configure(font=('Arial', 13))
+    imagem_entrada_tela_end = Label(frame2, image=imagens_entrada_end, background='Black')
+    imagem_entrada_tela_end.place(relx=0.15, rely=0.485)
     endereco_entrada = Entry()
-    endereco_entrada.place(relx=0.15, rely=0.6)
+    endereco_entrada.configure(font=(fonteDados))
+    endereco_entrada.place(relx=0.16, rely=0.532, relheight=0.030, relwidth=0.195)
 
     numero = Label(frame2, text='Número', background='Black', foreground='White')
-    numero.place(relx=0.25, rely=0.55)
+    numero.place(relx=0.375, rely=0.445)
+    numero.configure(font=('Arial', 13))
+    imagem_entrada_tela_num = Label(frame2, image=imagem_entrada_num, background='Black')
+    imagem_entrada_tela_num.place(relx=0.375, rely=0.485)
     numero_entrada = Entry()
-    numero_entrada.place(relx=0.25, rely=0.6)
+    numero_entrada.configure(font=(fonteDados))
+    numero_entrada.place(relx=0.38, rely=0.531, relheight=0.030, relwidth=0.048)
 
     complemento = Label(frame2, text='Complemento', background='Black', foreground='White')
-    complemento.place(relx=0.15, rely=0.8)
+    complemento.place(relx=0.15, rely=0.645)
+    complemento.configure(font=('Arial', 13))
+    imagem_entrada_complemento = Label(frame2, image=imagens_entrada_end, background='Black')
+    imagem_entrada_complemento.place(relx=0.15, rely=0.685)
     complemento_entrada = Entry()
-    complemento_entrada.place(relx=0.15, rely=0.77)
+    complemento_entrada.configure(font=(fonteDados))
+    complemento_entrada.place(relx=0.16, rely=0.66, relheight=0.030, relwidth=0.195)
 
     separar = Label(frame2, text='')
     separar.place(relx=0.5, rely=0.25, relheight=0.65, relwidth=0.001)
 
     bairro = Label(frame2, text='Bairro', background='Black', foreground='White')
-    bairro.place(relx=0.65, rely=0.3)
+    bairro.place(relx=0.55, rely=0.245)
+    bairro.configure(font=('Arial', 13))
+    imagem_entrada_bairro = Label(frame2, image=imagens_entrada_end, background='Black')
+    imagem_entrada_bairro.place(relx=0.55, rely=0.285)
     bairro_entrada = Entry()
-    bairro_entrada.place(relx=0.65, rely=0.45)
+    bairro_entrada.configure(font=(fonteDados))
+    bairro_entrada.place(relx=0.56, rely=0.4, relheight=0.030, relwidth=0.195)
     
     cidade = Label(frame2, text='Cidade', background='Black', foreground='White')
-    cidade.place(relx=0.65, rely=0.55)
+    cidade.place(relx=0.55, rely=0.445)
+    cidade.configure(font=('Arial', 13))
+    imagem_entrada_cidade = Label(frame2, image=imagens_entrada_end, background='Black')
+    imagem_entrada_cidade.place(relx=0.55, rely=0.485)
     cidade_entrada = Entry()
-    cidade_entrada.place(relx=0.65, rely=0.6)
+    cidade_entrada.configure(font=(fonteDados))
+    cidade_entrada.place(relx=0.56, rely=0.53, relheight=0.030, relwidth=0.195)
     
     telefone = Label(frame2, text='Telefone', background='Black', foreground='White')
-    telefone.place(relx=0.65, rely=0.8)
+    telefone.place(relx=0.55, rely=0.645)
+    telefone.configure(font=('Arial', 13))
+    imagem_entrada_tel = Label(frame2, image=imagem_entrada_media, background='Black')
+    imagem_entrada_tel.place(relx=0.55, rely=0.685)
     telefone_entrada = Entry()
-    telefone_entrada.place(relx=0.65, rely=0.77)
+    telefone_entrada.configure(font=(fonteDados))
+    telefone_entrada.place(relx=0.56, rely=0.66, relheight=0.030, relwidth=0.13)
 
-    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento())
-    botao_qualquer.place(relx=0.75, rely=0.77)
+    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento())
+    botao_qualquer.configure(font=('Corbel', 18))
+    botao_qualquer.place(relx=0.65, rely=0.835)
 
 def entrega(cep, num, bairro, cidade, complemento, rua):
     valid_cep = False
@@ -1300,53 +1349,65 @@ def pagamento():
     camisas.configure(font=(fontE))
     moletom.configure(font=(fontE))
 
-    imagem_estilo_pagamento  = Label(frame2, image=estilizacao_pagamento, background='Black')
-    imagem_estilo_pagamento .place(relx=0.1, rely=0.1)
+    imagem_estilo_pagamento = Label(frame2, image=estilizacao_pagamento, background='Black')
+    imagem_estilo_pagamento.place(relx=0.1, rely=0.1)
 
     separar3 = Label(frame2, text='', background='#2CFFF8')
     separar3.place(relx=0.15, rely=0.15, relheight=0.001, relwidth=0.7)
 
     titulo = Label(frame2, text='Pagamento', background='Black', foreground='White')
-    titulo.place(relx=0.48, rely=0.17)
+    titulo.place(relx=0.45, rely=0.17)
+    titulo.configure(font=(fontE))
 
     pix = Label(frame2, text='Pix', background='Black', foreground='White')
-    pix.place(relx=0.15, rely=0.3)
-    pix_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento_pix())
-    pix_selecionar.place(relx=0.1, rely=0.3)
+    pix.place(relx=0.19, rely=0.32)
+    pix.configure(font=('Arial', 16))
+    pix_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_pix())
+    pix_selecionar.place(relx=0.15, rely=0.3)
     
     boleto = Label(frame2, text='Boleto', background='Black', foreground='White')
-    boleto.place(relx=0.15, rely=0.4)
-    boleto_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento_boleto())
-    boleto_selecionar.place(relx=0.1, rely=0.4)
+    boleto.place(relx=0.19, rely=0.52)
+    boleto.configure(font=('Arial', 16))
+    boleto_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_boleto())
+    boleto_selecionar.place(relx=0.15, rely=0.5)
 
     cartao = Label(frame2, text='Cartão Débito/Crédito', background='Black', foreground='White')
-    cartao.place(relx=0.15, rely=0.5)
-    cartao_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento_cartao())
-    cartao_selecionar.place(relx=0.1, rely=0.5)
+    cartao.place(relx=0.19, rely=0.72)
+    cartao.configure(font=('Arial', 16))
+    cartao_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_cartao())
+    cartao_selecionar.place(relx=0.15, rely=0.7)
 
     separar4 = Label(frame2, text='')
     separar4.place(relx=0.5, rely=0.25, relheight=0.65, relwidth=0.001)
 
     pedido = Label(frame2, text='Resumo do pedido', background='Black', foreground='White')
-    pedido.place(relx=0.7, rely=0.3)
+    pedido.place(relx=0.65, rely=0.3)
+    pedido.configure(font=('Arial', 18, 'italic'))
 
     subtotal = Label(frame2, text='Sub-total', background='Black', foreground='White')
-    subtotal.place(relx=0.7, rely= 0.4)
+    subtotal.place(relx=0.6, rely= 0.5)
+    subtotal.configure(font=('Arial', 15))
     subtotal_valor = Label(frame2, text=f'R$ {total_finalizar}', background='Black', foreground='White')
-    subtotal_valor.place(relx=0.8, rely=0.4)
+    subtotal_valor.place(relx=0.8, rely=0.5)
+    subtotal_valor.configure(font=('Arial', 15))
 
     frete = Label(frame2, text='Frete', background='Black', foreground='White')
-    frete.place(relx=0.7, rely= 0.5)
+    frete.place(relx=0.6, rely= 0.6)
+    frete.configure(font=('Arial', 15))
     frete_valor = Label(frame2, text='Frete grátis', background='Black', foreground='White')
-    frete_valor.place(relx=0.8, rely=0.5)
+    frete_valor.place(relx=0.8, rely=0.6)
+    frete_valor.configure(font=('Arial', 15))
 
     total = Label(frame2, text='Total', background='Black', foreground='White')
-    total.place(relx=0.7, rely= 0.6)
+    total.place(relx=0.6, rely= 0.7)
+    total.configure(font=('Arial', 15))
     total_valor = Label(frame2, text=f'R$ {total_finalizar}', background='Black', foreground='White')
-    total_valor.place(relx=0.8, rely=0.6)
+    total_valor.place(relx=0.8, rely=0.7)
+    total_valor.configure(font=('Arial', 15))
 
     carrinho_vazio = Label(frame2, textvariable=erro_carrinho_vazio, background='Black', foreground='White')
-    carrinho_vazio.place(relx=0.7, rely=0.8)
+    carrinho_vazio.place(relx=0.62, rely=0.85)
+    carrinho_vazio.configure(font=('Arial', 12))
 
 def marcar_botao_pagamento():
     global cont1
@@ -1391,35 +1452,41 @@ def pagamento_pix():
         separar3.place(relx=0.15, rely=0.15, relheight=0.001, relwidth=0.7)
 
         titulo = Label(frame2, text='Pagamento', background='Black', foreground='White')
-        titulo.place(relx=0.48, rely=0.17)
+        titulo.place(relx=0.45, rely=0.17)
+        titulo.configure(font=(fontE))
 
         pix = Label(frame2, text='Pix', background='Black', foreground='White')
-        pix.place(relx=0.15, rely=0.3)
-        pix_selecionar = Button(frame2, image=botao_pagamento_selecionado, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', )
-        pix_selecionar.place(relx=0.1, rely=0.3)
-        
+        pix.place(relx=0.19, rely=0.32)
+        pix.configure(font=('Arial', 16))
+        pix_selecionar = Button(frame2, image=botao_pagamento_selecionado, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_pix())
+        pix_selecionar.place(relx=0.15, rely=0.3)
+            
         boleto = Label(frame2, text='Boleto', background='Black', foreground='White')
-        boleto.place(relx=0.15, rely=0.4)
-        boleto_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento_boleto())
-        boleto_selecionar.place(relx=0.1, rely=0.4)
+        boleto.place(relx=0.19, rely=0.52)
+        boleto.configure(font=('Arial', 16))
+        boleto_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_boleto())
+        boleto_selecionar.place(relx=0.15, rely=0.5)
 
-        cartao = Label(frame2, text='Cartão Débito/Crédito', background='Black', foreground='White')
-        cartao.place(relx=0.15, rely=0.5)
-        cartao_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento_cartao())
-        cartao_selecionar.place(relx=0.1, rely=0.5)
+        cartao = Label(frame2, text='Cartão Débito/Crédito', background='Black', foreground='White')            
+        cartao.place(relx=0.19, rely=0.72)
+        cartao.configure(font=('Arial', 16))
+        cartao_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_cartao())
+        cartao_selecionar.place(relx=0.15, rely=0.7)
 
         separar4 = Label(frame2, text='')
         separar4.place(relx=0.5, rely=0.25, relheight=0.65, relwidth=0.001)
 
         imagem_pix = Label(frame2, image=pix_logo, background='Black')
-        imagem_pix.place(relx=0.55, rely=0.2)
+        imagem_pix.place(relx=0.56, rely=0.29)
 
-        termos_de_uso = Button(frame2, image=botao1_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: marcar_botao_pagamento())
-        termos_de_uso.place(relx=0.6, rely=0.7)
+        termos_de_uso = Button(frame2, image=botao1_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: marcar_botao_pagamento())
+        termos_de_uso.place(relx=0.55, rely=0.75)
         termos = Label(frame2, text='Você concorda com nossos Termos e Condições', background='Black', foreground='White')
-        termos.place(relx=0.62, rely=0.7)
-        finalizar = Button(frame2, text='Finalizar pedido', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda:verificar_login_finalizar_pedido())
-        finalizar.place(relx=0.75, rely=0.85)
+        termos.place(relx=0.575, rely=0.762)
+        termos.configure(font=('Arial', 12))
+
+        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
+        finalizar.place(relx=0.645, rely=0.85)
     else:
         erro_carrinho_vazio.set('Carrinho vazio, adicione itens no carrinho')
         pagamento()
@@ -1459,59 +1526,71 @@ def pagamento_boleto():
         separar3.place(relx=0.15, rely=0.15, relheight=0.001, relwidth=0.7)
 
         titulo = Label(frame2, text='Pagamento', background='Black', foreground='White')
-        titulo.place(relx=0.48, rely=0.17)
+        titulo.place(relx=0.45, rely=0.17)
+        titulo.configure(font=(fontE))
 
         pix = Label(frame2, text='Pix', background='Black', foreground='White')
-        pix.place(relx=0.15, rely=0.3)
-        pix_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento_pix())
-        pix_selecionar.place(relx=0.1, rely=0.3)
-        
+        pix.place(relx=0.19, rely=0.32)
+        pix.configure(font=('Arial', 16))
+        pix_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_pix())
+        pix_selecionar.place(relx=0.15, rely=0.3)
+            
         boleto = Label(frame2, text='Boleto', background='Black', foreground='White')
-        boleto.place(relx=0.15, rely=0.4)
-        boleto_selecionar = Button(frame2, image=botao_pagamento_selecionado, background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White', relief='flat')
-        boleto_selecionar.place(relx=0.1, rely=0.4)
+        boleto.place(relx=0.19, rely=0.52)
+        boleto.configure(font=('Arial', 16))
+        boleto_selecionar = Button(frame2, image=botao_pagamento_selecionado, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_boleto())
+        boleto_selecionar.place(relx=0.15, rely=0.5)
 
-        cartao = Label(frame2, text='Cartão Débito/Crédito', background='Black', foreground='White')
-        cartao.place(relx=0.15, rely=0.5)
-        cartao_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: pagamento_cartao())
-        cartao_selecionar.place(relx=0.1, rely=0.5)
+        cartao = Label(frame2, text='Cartão Débito/Crédito', background='Black', foreground='White')            
+        cartao.place(relx=0.19, rely=0.72)
+        cartao.configure(font=('Arial', 16))
+        cartao_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_cartao())
+        cartao_selecionar.place(relx=0.15, rely=0.7)
 
         separar4 = Label(frame2, text='')
         separar4.place(relx=0.5, rely=0.25, relheight=0.65, relwidth=0.001)
 
         nome = Label(frame2, text='Nome', background='Black', foreground='White')
-        nome.place(relx=0.6, rely=0.3)
+        nome.place(relx=0.555, rely=0.3)
+        nome.configure(font=('Arial', 15))
         imagem_entrada_nome_boleto = Label(frame2, image=entrada_nome_boleto, background='Black')
-        imagem_entrada_nome_boleto.place(relx=0.59, rely=0.35)
+        imagem_entrada_nome_boleto.place(relx=0.555, rely=0.35)
         nome_entrada = Entry()
-        nome_entrada.place(relx=0.598, rely=0.443, relwidth=0.12, relheight=0.028)
+        nome_entrada.place(relx=0.565, rely=0.44, relwidth=0.115, relheight=0.0275)
+        nome_entrada.configure(font=(fonteDados))
         erro_nome_boleto = Label(frame2, textvariable=erro_nome, background='Black', foreground='White')
-        erro_nome_boleto.place(relx=0.598, rely=0.43)
+        erro_nome_boleto.place(relx=0.555, rely=0.43)
 
         sobrenome = Label(frame2, text='Sobrenome', background='Black', foreground='White')
         sobrenome.place(relx=0.75, rely=0.3)
+        sobrenome.configure(font=('Arial', 15))
         imagem_entrada_sobrenome_boleto  = Label(frame2, image=entrada_sobrenome_boleto, background='Black')
         imagem_entrada_sobrenome_boleto .place(relx=0.745, rely=0.35)
         sobrenome_entrada = Entry()
-        sobrenome_entrada.place(relx=0.754, rely=0.443, relwidth=0.15, relheight=0.028)
+        sobrenome_entrada.place(relx=0.752, rely=0.44, relwidth=0.145, relheight=0.028)
+        sobrenome_entrada.configure(font=(fonteDados))
         erro_sobrenome_boleto = Label(frame2, textvariable=erro_sobrenome, background='Black', foreground='White')
         erro_sobrenome_boleto.place(relx=0.754, rely=0.43)
 
         documento = Label(frame2, text='Número do documento', background='Black', foreground='White')
-        documento.place(relx=0.6, rely=0.5)
+        documento.place(relx=0.555, rely=0.5)
+        documento.configure(font=('Arial', 15))
         imagem_entrada_cpf_boleto = Label(frame2, image=entrada_documento_boleto, background='Black')
-        imagem_entrada_cpf_boleto.place(relx=0.6, rely=0.53)
+        imagem_entrada_cpf_boleto.place(relx=0.555, rely=0.54)
         documento_entrada = Entry()
-        documento_entrada.place(relx=0.611, rely=0.56, relheight=0.028, relwidth=0.179)
+        documento_entrada.place(relx=0.565, rely=0.565, relheight=0.0265, relwidth=0.175)
+        documento_entrada.configure(font=(fonteDados))
         erro_documento_boleto = Label(frame2, textvariable=erro_cpf_cadastro, background='Black', foreground='White')
-        erro_documento_boleto.place(relx=0.611, rely=0.61)
+        erro_documento_boleto.place(relx=0.555, rely=0.61)
 
-        termos_de_uso = Button(frame2, image=botao1_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: marcar_botao_pagamento())
-        termos_de_uso.place(relx=0.6, rely=0.7)
+        termos_de_uso = Button(frame2, image=botao1_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: marcar_botao_pagamento())
+        termos_de_uso.place(relx=0.55, rely=0.75)
         termos = Label(frame2, text='Você concorda com nossos Termos e Condições', background='Black', foreground='White')
-        termos.place(relx=0.62, rely=0.7)
-        finalizar = Button(frame2, text='Finalizar pedido', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: verificar_dados_boleto(nome_entrada.get(), sobrenome_entrada.get(), documento_entrada.get()))
-        finalizar.place(relx=0.75, rely=0.85)
+        termos.place(relx=0.575, rely=0.762)
+        termos.configure(font=('Arial', 12))
+
+        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
+        finalizar.place(relx=0.645, rely=0.85)
     else:
         erro_carrinho_vazio.set('Carrinho vazio, adicione itens no carrinho')
         pagamento()
@@ -1615,88 +1694,108 @@ def pagamento_cartao():
         separar3.place(relx=0.15, rely=0.15, relheight=0.001, relwidth=0.7)
 
         titulo = Label(frame2, text='Pagamento', background='Black', foreground='White')
-        titulo.place(relx=0.48, rely=0.17)
+        titulo.place(relx=0.45, rely=0.17)
+        titulo.configure(font=(fontE))
 
         pix = Label(frame2, text='Pix', background='Black', foreground='White')
-        pix.place(relx=0.15, rely=0.3)
-        pix_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', command= lambda: pagamento_pix())
-        pix_selecionar.place(relx=0.1, rely=0.3)
-        
+        pix.place(relx=0.19, rely=0.32)
+        pix.configure(font=('Arial', 16))
+        pix_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_pix())
+        pix_selecionar.place(relx=0.15, rely=0.3)
+            
         boleto = Label(frame2, text='Boleto', background='Black', foreground='White')
-        boleto.place(relx=0.15, rely=0.4)
-        boleto_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', command= lambda: pagamento_boleto())
-        boleto_selecionar.place(relx=0.1, rely=0.4)
+        boleto.place(relx=0.19, rely=0.52)
+        boleto.configure(font=('Arial', 16))
+        boleto_selecionar = Button(frame2, image=botao_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_boleto())
+        boleto_selecionar.place(relx=0.15, rely=0.5)
 
-        cartao = Label(frame2, text='Cartão Débito/Crédito', background='Black', foreground='White')
-        cartao.place(relx=0.15, rely=0.5)
-        cartao_selecionar = Button(frame2, image=botao_pagamento_selecionado, background='Black', foreground='White', relief='flat')
-        cartao_selecionar.place(relx=0.1, rely=0.5)
+        cartao = Label(frame2, text='Cartão Débito/Crédito', background='Black', foreground='White')            
+        cartao.place(relx=0.19, rely=0.72)
+        cartao.configure(font=('Arial', 16))
+        cartao_selecionar = Button(frame2, image=botao_pagamento_selecionado, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento_cartao())
+        cartao_selecionar.place(relx=0.15, rely=0.7)
 
         separar4 = Label(frame2, text='')
         separar4.place(relx=0.5, rely=0.25, relheight=0.65, relwidth=0.001)
 
         numero_cartao = Label(frame2, text='Número do cartão', background='Black', foreground='White')
-        numero_cartao.place(relx=0.6, rely=0.28)
+        numero_cartao.place(relx=0.555, rely=0.28)
+        numero_cartao.configure(font=('Arial', 15))
         imagem_entrada_numero_cartao = Label(frame2, image=numero_cartao_credito, background='Black')
-        imagem_entrada_numero_cartao.place(relx=0.59, rely=0.32)
+        imagem_entrada_numero_cartao.place(relx=0.555, rely=0.32)
         numero_cartao_entrada = Entry()
-        numero_cartao_entrada.place(relx=0.598, rely=0.423, relwidth=0.12, relheight=0.028)
+        numero_cartao_entrada.place(relx=0.565, rely=0.42, relwidth=0.145, relheight=0.028)
+        numero_cartao_entrada.configure(font=(fonteDados))
         numero_cartao_erro = Label(frame2, textvariable=erro_numero_cartao, background='Black', foreground='White')
-        numero_cartao_erro.place(relx=0.598, rely=0.4)
+        numero_cartao_erro.place(relx=0.555, rely=0.4)
 
         nome = Label(frame2, text='Nome', background='Black', foreground='White')
         nome.place(relx=0.75, rely=0.28)
+        nome.configure(font=('Arial', 15))
         imagem_entrada_nome_cartao = Label(frame2, image=nome_titular_cartao, background='Black')
         imagem_entrada_nome_cartao.place(relx=0.745, rely=0.32)
         nome_entrada = Entry()
-        nome_entrada.place(relx=0.754, rely=0.423, relwidth=0.15, relheight=0.028)
+        nome_entrada.place(relx=0.754, rely=0.42, relwidth=0.145, relheight=0.028)
+        nome_entrada.configure(font=(fonteDados))
         nome_cartao_erro = Label(frame2, textvariable=erro_nome, background='Black', foreground='White')
         nome_cartao_erro.place(relx=0.75, rely=0.4)
 
         vencimento = Label(frame2, text='Data de vencimento', background='Black', foreground='White')
-        vencimento.place(relx=0.6, rely=0.45)
+        vencimento.place(relx=0.555, rely=0.45)
+        vencimento.configure(font=('Arial', 15))
         imagem_entrada_data_cartao = Label(frame2, image=vencimento_cvc, background='Black')
-        imagem_entrada_data_cartao.place(relx=0.6, rely=0.49)
+        imagem_entrada_data_cartao.place(relx=0.555, rely=0.5)
         vencimento_entrada = Entry()
-        vencimento_entrada.place(relx=0.61, rely=0.53, relwidth=0.06)
+        vencimento_entrada.place(relx=0.562, rely=0.538, relwidth=0.039, relheight=0.0275)
+        vencimento_entrada.configure(font=(fonteDados))
         data_cartao_erro = Label(frame2, textvariable=erro_data_cartao, background='Black', foreground='White')
-        data_cartao_erro.place(relx=0.61, rely=0.55)
+        data_cartao_erro.place(relx=0.555, rely=0.55)
 
         codigo = Label(frame2, text='Código de segurança', background='Black', foreground='White')
         codigo.place(relx=0.75, rely=0.45)
+        codigo.configure(font=('Arial', 15))
         imagem_entrada_cvv_cartao = Label(frame2, image=vencimento_cvc, background='Black')
-        imagem_entrada_cvv_cartao.place(relx=0.745, rely=0.49)
+        imagem_entrada_cvv_cartao.place(relx=0.75, rely=0.5)
         codigo_entrada = Entry()
-        codigo_entrada.place(relx=0.754, rely=0.53, relwidth=0.06)
+        codigo_entrada.place(relx=0.759, rely=0.538, relwidth=0.035, relheight=0.0275)
+        codigo_entrada.configure(font=(fonteDados))
         cvv_cartao_erro = Label(frame2, textvariable=erro_cvv_cartao, background='Black', foreground='White')
         cvv_cartao_erro.place(relx=0.75, rely=0.55)
 
         id = Label(frame2, text='CPF', background='Black', foreground='White')
-        id.place(relx=0.6, rely=0.605)
+        id.place(relx=0.555, rely=0.605)
+        id.configure(font=('Arial', 15))
         imagem_entrada_cpf_cartao = Label(frame2, image=cpf_cartao, background='Black')
-        imagem_entrada_cpf_cartao.place(relx=0.59, rely=0.64)
+        imagem_entrada_cpf_cartao.place(relx=0.555, rely=0.645)
         cpf_entrada = Entry()
-        cpf_entrada.place(relx=0.598, rely=0.63, relwidth=0.12, relheight=0.028)
+        cpf_entrada.place(relx=0.562, rely=0.63, relwidth=0.118, relheight=0.028)
+        cpf_entrada.configure(font=(fonteDados))
         cpf_cartao_erro = Label(frame2, textvariable=erro_cpf_cadastro, background='Black', foreground='White')
-        cpf_cartao_erro.place(relx=0.598, rely=0.72)
+        cpf_cartao_erro.place(relx=0.555, rely=0.72)
 
         parcelas = Label(frame2, text='Parcelas', background='Black', foreground='White')
-        parcelas.place(relx=0.8, rely=0.6)
+        parcelas.place(relx=0.75, rely=0.6)
+        parcelas.configure(font=('Arial', 15))
         imagem_entrada_parcelas_cartao = Label(frame2, image=parcelas_cartao, background='Black')
-        imagem_entrada_parcelas_cartao.place(relx=0.8, rely=0.64)
+        imagem_entrada_parcelas_cartao.place(relx=0.765, rely=0.645)
         parcelas_entrada = Label(frame2, textvariable=qnt_parcelas_Var, background='White')
-        parcelas_entrada.place(relx=0.807, rely=0.67, relwidth=0.02, relheight=0.03)
-        diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: diminuir_parcelas())
-        diminuir_quantidade.place(relx=0.785, rely=0.66)
-        aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: aumentar_parcelas())
-        aumentar_quantidade.place(relx=0.84, rely=0.66)
+        parcelas_entrada.place(relx=0.77, rely=0.673, relwidth=0.02, relheight=0.03)
+        parcelas_entrada.configure(font=(fonteDados))
+        diminuir_quantidade = Button(frame2, text='-', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: diminuir_parcelas())
+        diminuir_quantidade.place(relx=0.75, rely=0.66)
+        diminuir_quantidade.configure(font=('Arial', 16))
+        aumentar_quantidade = Button(frame2, text='+', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: aumentar_parcelas())
+        aumentar_quantidade.place(relx=0.798, rely=0.66)
+        aumentar_quantidade.configure(font=('Arial', 16))
 
-        termos_de_uso = Button(frame2, image=botao1_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: marcar_botao_pagamento())
-        termos_de_uso.place(relx=0.6, rely=0.87)
+        termos_de_uso = Button(frame2, image=botao1_pagamento, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: marcar_botao_pagamento())
+        termos_de_uso.place(relx=0.55, rely=0.75)
         termos = Label(frame2, text='Você concorda com nossos Termos e Condições', background='Black', foreground='White')
-        termos.place(relx=0.63, rely=0.88)
-        finalizar = Button(frame2, text='Finalizar pedido', background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White', command= lambda: verificar_dados_cartao(numero_cartao_entrada.get(), nome_entrada.get(), vencimento_entrada.get(), codigo_entrada.get(), cpf_entrada.get()))
-        finalizar.place(relx=0.85, rely=0.9)
+        termos.place(relx=0.575, rely=0.762)
+        termos.configure(font=('Arial', 12))
+
+        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
+        finalizar.place(relx=0.645, rely=0.85)
     else:
         erro_carrinho_vazio.set('Carrinho vazio, adicione itens no carrinho')
         pagamento()
@@ -1788,10 +1887,7 @@ def finalizar_pedido():
     moletom.configure(font=(fontE))
 
     text = Label(frame2, image=finalizar_imagem, background='Black')
-    text.place(relx=0.25, rely=0.4)
-
-    agradecimento = Label(frame2, text=f'Obrigado por comprar com a\nCompuStore! :)', background='Black', foreground='White')
-    agradecimento.place(relx=0.4, rely=0.6)
+    text.place(relx=0.2, rely=0.4)
 
 def verificar_login_finalizar_pedido():
     if logado == True and cont1 % 2 == 0:
@@ -1801,18 +1897,21 @@ def verificar_login_finalizar_pedido():
     else:
         janela2 = Toplevel()
         janela2.title('CompuStore')
-        janela2.geometry('600x400')
+        janela2.geometry('300x175')
         janela2.iconbitmap(default='Imagens/Decoracoes_pagina/icon.ico')
         janela2.resizable(False, False)
         janela2.configure(background='Black')
 
         text = Label(janela2, text='Faça Login para poder comprar', background='Black', foreground='White')
-        text.place(relx=0.2, rely=0.2)
+        text.place(relx=0.13, rely=0.2)
+        text.configure(font=('Arial', 12))
 
-        botao_login = Button(janela2, text='Login', background='Black', foreground='White', activebackground='Black', activeforeground='White', bd=0, relief='flat', command= lambda: [janela2.destroy(), login()])
-        botao_login.place(relx=0.3, rely=0.3)
-        botao_cadastro = Button(janela2, text='Cadastro', background='Black', foreground='White', activebackground='Black', activeforeground='White', bd=0, relief='flat', command= lambda: [janela2.destroy(), cadastro()])
-        botao_cadastro.place(relx=0.5, rely=0.3)
+        botao_login = Button(janela2, text='Login', background='Black', foreground='White', activebackground='Black', activeforeground='White', bd=0, relief='flat',cursor='hand2', command= lambda: [janela2.destroy(), login()])
+        botao_login.place(relx=0.28, rely=0.5)
+        botao_login.configure(font=('Arial', 11))
+        botao_cadastro = Button(janela2, text='Cadastro', background='Black', foreground='White', activebackground='Black', activeforeground='White', bd=0, relief='flat',cursor='hand2', command= lambda: [janela2.destroy(), cadastro()])
+        botao_cadastro.place(relx=0.5, rely=0.5)
+        botao_cadastro.configure(font=('Arial', 11))
 
 paginaInicial()
 
