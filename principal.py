@@ -16,7 +16,7 @@ total_finalizar = 0
 nome_modelo_texto = ''
 variavel = False
 cont1 = 1
-entrega_valida = True
+entrega_valida = False
 
 #Janela
 janela = Tk()
@@ -1434,6 +1434,7 @@ def marcar_botao_pagamento():
 
 def pagamento_pix():
     global erro_carrinho_vazio
+    erro_termos_uso.set('')
     menu_logado()
     if total_finalizar > 0:
         erro_carrinho_vazio.set('')
