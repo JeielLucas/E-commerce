@@ -16,7 +16,7 @@ total_finalizar = 0
 nome_modelo_texto = ''
 variavel = False
 cont1 = 1
-entrega_valida = True
+entrega_valida = False
 
 #Janela
 janela = Tk()
