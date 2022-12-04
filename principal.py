@@ -16,6 +16,7 @@ total_finalizar = 0
 nome_modelo_texto = ''
 variavel = False
 cont1 = 1
+entrega_valida = True
 
 #Janela
 janela = Tk()
@@ -43,6 +44,8 @@ erro_data_cartao = StringVar(janela, '')
 erro_carrinho_vazio = StringVar(janela, '')
 cadastro_realizado_mensagem = StringVar(janela, '')
 
+
+erro_termos_uso = StringVar(janela, '')
 #Config Frames
 frame1 = Frame(janela, background='Black')
 frame1.place(relx=0, rely=0, relwidth=1, relheight=0.2)
@@ -733,6 +736,7 @@ def comprar_caneca(modelo):
 # Login e cadastro
 
 def login():
+    erro_login_texto.set('')
     frame2 = Frame(janela, background='Black')
     frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
 
@@ -779,6 +783,7 @@ def login():
     imagem_seta_tela.place(relx=0.86, rely=0.6)
 
 def cadastro():
+    erro_cpf_cadastro.set(''), erro_senha_cadastro.set(''), erro_email_cadastro.set(''), erro_nome.set(''), erro_data_cadastro.set('')
     frame2 = Frame(janela, background='Black')
     frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
 
@@ -802,7 +807,7 @@ def cadastro():
     validate_nome = Label(frame2, textvariable=erro_nome, background='Black', foreground='White')
     validate_nome.place(relx=0.1, rely=0.34)
 
-    data_nascimento_texto = Label(frame2, text='Data de nascimento:', background='Black', foreground='White')
+    data_nascimento_texto = Label(frame2, text='Data de nascimento: (Ex:dd/mm/aaaa)', background='Black', foreground='White')
     data_nascimento_texto.place(relx=0.1, rely=0.42)
     data_nascimento_texto.configure(font=('Arial', 13))
 
@@ -841,7 +846,7 @@ def cadastro():
     validate_email = Label(frame2, textvariable=erro_email_cadastro, background='Black', foreground='White')
     validate_email.place(relx=0.65, rely=0.34)
 
-    senha_texto = Label(frame2, text='Digite sua senha:', background='Black', foreground='White')
+    senha_texto = Label(frame2, text='Digite sua senha: (Min. 8 dígitos)', background='Black', foreground='White')
     senha_texto.place(relx=0.65, rely=0.42)
     senha_texto.configure(font=('Arial', 13))
 
@@ -869,7 +874,7 @@ def cadastro():
     cadastro.place(relx=0.745, rely=0.88)
 
     cadastro_realizado = Label(frame2, textvariable=cadastro_realizado_mensagem, background='Black', foreground='White')
-    cadastro_realizado.place(relx=0.748, rely=0.843)
+    cadastro_realizado.place(relx=0.75, rely=0.84)
 
 def isLoged(email, password):
     global logado, erro_login_texto
@@ -897,8 +902,9 @@ def isLoged(email, password):
         erro_login_texto.set('Email e/ou senha incorreto(s)')
 
 def deslogar():
-    global logado
+    global logado, entrega_valida
     logado = False
+    entrega_valida = False
     menu_logado()
 
 def menu_logado():
@@ -1121,7 +1127,7 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
     valid_nome = verificar_nome(nome)
     valid_data = data_nascimento(nascimento)
     if valid_senha == False:
-        erro_senha_cadastro.set('Senhas não conferem  (Min. 8 dígitos)')
+        erro_senha_cadastro.set('Senhas não conferem')
     else:
         erro_senha_cadastro.set('')
     if valid_email == False:
@@ -1139,7 +1145,7 @@ def dados(senha, confSenha, email, cpf, nome, nascimento):
     else:
         erro_nome.set('')
     if valid_data == False:
-        erro_data_cadastro.set('Data inválida  Ex:dd/mm/aaaa')
+        erro_data_cadastro.set('Data inválida')
     else:
         erro_data_cadastro.set('')
     if valid_senha == True and valid_email == True and valid_cpf == True and valid_nome == True and valid_data == True:
@@ -1261,70 +1267,79 @@ def endereco():
     telefone_entrada.configure(font=(fonteDados))
     telefone_entrada.place(relx=0.56, rely=0.66, relheight=0.030, relwidth=0.13)
 
-    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: pagamento())
+    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: entrega(cep_entrada.get(), numero_entrada.get(), bairro_entrada.get(), cidade_entrada.get(), complemento_entrada.get(), endereco_entrada.get()))
     botao_qualquer.configure(font=('Corbel', 18))
     botao_qualquer.place(relx=0.65, rely=0.835)
 
 def entrega(cep, num, bairro, cidade, complemento, rua):
+    global entrega_valida
     valid_cep = False
     valid_numero = False
     valid_bairro = False
     valid_cidade = False
     valid_complemento = False
     valid_rua = False
-
+    
     #Cep
     cep = cep.replace('-', '')
     if len(cep) == 8:
         valid_cep = True
 
     #Número
-    for i in num:
-        if i.isdigit():
-            valid_numero = True
-        else:
-            valid_numero = False
-            break
+    try:
+        num = int(num)
+        valid_numero = True
+    except:
+        valid_numero = False
     
     #Bairro
-    if bairro[0] != ' ' and bairro[-1] != ' ':
-        for i in bairro:
-            if i.isalpha() or i == ' ':
-                valid_bairro = True
-            elif i.isdigit():
-                valid_bairro = True
-            else:
-                valid_bairro = False
-                break
+    if len(bairro) != 0:
+        if bairro[0] != ' ' and bairro[-1] != ' ':
+            for i in bairro:
+                if i.isalpha() or i == ' ':
+                    valid_bairro = True
+                elif i.isdigit():
+                    valid_bairro = True
+                else:
+                    valid_bairro = False
+                    break
     
     #Cidade
-    if cidade[0] != ' ' and cidade[-1] != ' ':
-        for i in cidade:
-            if i.isalpha() or i == ' ':
-                valid_cidade = True
-            else:
-                valid_cidade = False
-                break
+    if len(cidade) != 0:
+        if cidade[0] != ' ' and cidade[-1] != ' ':
+            for i in cidade:
+                if i.isalpha() or i == ' ':
+                    valid_cidade = True
+                else:
+                    valid_cidade = False
+                    break
     
     #Complemento
-    if complemento[0] != ' ' and complemento[-1] != ' ':
-        for i in complemento:
-            if i.isalpha() or i == ' ':
-                valid_complemento = True
-            else:
-                valid_complemento = False
-                break  
+    if len(complemento) != 0:
+        if complemento[0] != ' ' and complemento[-1] != ' ':
+            for i in complemento:
+                if i.isalpha() or i == ' ':
+                    valid_complemento = True
+                else:
+                    valid_complemento = False
+                    break  
     
     #Rua
-    if rua[0] != ' ' and rua[-1] != ' ':
-        for i in rua:
-            if i.isalpha() or i == ' ':
-                valid_rua = True
-            else:
-                valid_rua = False
-                break
+    if len(rua) != 0:
+        if rua[0] != ' ' and rua[-1] != ' ':
+            for i in rua:
+                if i.isalpha() or i == ' ':
+                    valid_rua = True
+                else:
+                    valid_rua = False
+                    break
+    if valid_cep == True and valid_numero == True and valid_bairro == True and valid_cidade == True and valid_complemento == True and valid_rua == True:
+        entrega_valida = True
+        pagamento()
 
 def pagamento():
+    if total_finalizar > 0:
+        erro_carrinho_vazio.set('')
     menu_logado()
     frame2 = Frame(janela, background='Black')
     frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
@@ -1484,7 +1499,8 @@ def pagamento_pix():
         termos = Label(frame2, text='Você concorda com nossos Termos e Condições', background='Black', foreground='White')
         termos.place(relx=0.575, rely=0.762)
         termos.configure(font=('Arial', 12))
-
+        erro_termos = Label(frame2, textvariable=erro_termos_uso, background='Black', foreground='White')
+        erro_termos.place(relx=0.3, rely=0.3)
         finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
         finalizar.place(relx=0.645, rely=0.85)
     else:
@@ -1493,6 +1509,7 @@ def pagamento_pix():
 
 def pagamento_boleto():
     global erro_carrinho_vazio
+    erro_nome.set(''), erro_sobrenome.set(''), erro_cpf_cadastro.set(''), erro_termos_uso.set('')
     menu_logado()
     if total_finalizar > 0:
         erro_carrinho_vazio.set('')
@@ -1588,8 +1605,10 @@ def pagamento_boleto():
         termos = Label(frame2, text='Você concorda com nossos Termos e Condições', background='Black', foreground='White')
         termos.place(relx=0.575, rely=0.762)
         termos.configure(font=('Arial', 12))
+        erro_termos = Label(frame2, textvariable=erro_termos_uso, background='Black', foreground='White')
+        erro_termos.place(relx=0.3, rely=0.3)
 
-        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
+        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_dados_boleto(nome_entrada.get(), sobrenome_entrada.get(), documento_entrada.get()))
         finalizar.place(relx=0.645, rely=0.85)
     else:
         erro_carrinho_vazio.set('Carrinho vazio, adicione itens no carrinho')
@@ -1658,9 +1677,15 @@ def verificar_dados_boleto(nome, sobrenome, cpf):
         erro_sobrenome.set('Sobrenome incorreto')
     else:
         erro_sobrenome.set('')
+    if entrega_valida == True:
+        if valid_nome == True and valid_sobrenome == True and valid_cpf == True:
+            verificar_login_finalizar_pedido()
+    else:
+        endereco()
 
 def pagamento_cartao():
     global erro_carrinho_vazio
+    erro_nome.set(''), erro_sobrenome.set(''), erro_cpf_cadastro.set(''), erro_cvv_cartao.set(''), erro_numero_cartao.set(''), erro_data_cartao.set(''), erro_termos_uso.set('')
     menu_logado()
     if total_finalizar > 0:
         erro_carrinho_vazio.set('')
@@ -1793,8 +1818,10 @@ def pagamento_cartao():
         termos = Label(frame2, text='Você concorda com nossos Termos e Condições', background='Black', foreground='White')
         termos.place(relx=0.575, rely=0.762)
         termos.configure(font=('Arial', 12))
-
-        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
+        erro_termos = Label(frame2, textvariable=erro_termos_uso, background='Black', foreground='White')
+        erro_termos.place(relx=0.3, rely=0.3)
+        
+        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_dados_cartao(numero_cartao_entrada.get(), nome_entrada.get(), vencimento_entrada.get(), codigo_entrada.get(), cpf_entrada.get()))
         finalizar.place(relx=0.645, rely=0.85)
     else:
         erro_carrinho_vazio.set('Carrinho vazio, adicione itens no carrinho')
@@ -1816,26 +1843,34 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
     #Validar número cartão
     numero_cartao = numero_cartao.replace(' ', '')
     if len(numero_cartao) == 16: 
-        for i in numero_cartao:
-            if i.isdigit():
-                validar_cartao = True
+        try:
+            for i in numero_cartao:
+                i = int(i)
+                if i.isdigit():
+                    validar_cartao = True
+                else:
+                    validar_cartao = False
+                    break
             else:
                 validar_cartao = False
-                break
-    else:
-        validar_cartao = False
+        except:
+            validar_cartao = False
     
     #Validar data de vencimento
     validar_data = verificar_data_vencimento(data_vencimento)
 
     #Validar codigo de segurança
     if len(codigo) == 3:
-        for i in codigo:
-            if i.isdigit():
-                valid_cvv = True
-            else:
-                valid_cvv = False
-                break
+        try:
+            for i in codigo:
+                i = int(i)
+                if i.isdigit():
+                    valid_cvv = True
+                else:
+                    valid_cvv = False
+                    break
+        except:
+            valid_cvv = False
 
     if valid_cvv == True:
         erro_cvv_cartao.set('')
@@ -1860,8 +1895,9 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
         erro_data_cartao.set('Data inválida')
 
 def finalizar_pedido():
-    global total_finalizar
+    global total_finalizar, entrega_valida
     total_finalizar = 0
+    entrega_valida = False
     menu_logado()
     frame2 = Frame(janela, background='Black')
     frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
@@ -1890,10 +1926,12 @@ def finalizar_pedido():
     text.place(relx=0.2, rely=0.4)
 
 def verificar_login_finalizar_pedido():
+    global erro_termos_uso
     if logado == True and cont1 % 2 == 0:
         finalizar_pedido()
+        erro_termos_uso.set('')
     elif logado == True and cont1 % 2 != 0:
-        print('aceite os termos')
+        erro_termos_uso.set('Aceite os termos de uso')
     else:
         janela2 = Toplevel()
         janela2.title('CompuStore')
