@@ -1044,8 +1044,6 @@ def verificar_data_vencimento(data_vencimento):
         mes, ano = data_vencimento.split('/', 2)
         mes = int(mes)
         ano = int(ano)
-        mes = str(mes)
-        ano = str(ano)
         if mes >= 1 and mes <=12:
             mes = str(mes)
             ano = str(ano)
@@ -1503,7 +1501,7 @@ def pagamento_pix():
         erro_termos.place(relx=0.64, rely=0.805)
         erro_termos.configure(font=('Arial', 11))
         
-        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido())
+        finalizar = Button(frame2, image=img_botao_finalizar, background='Black', foreground='White', relief='flat', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda:verificar_login_finalizar_pedido('Pix'))
         finalizar.place(relx=0.645, rely=0.85)
     else:
         erro_carrinho_vazio.set('Carrinho vazio, adicione itens no carrinho')
@@ -1680,7 +1678,7 @@ def verificar_dados_boleto(nome, sobrenome, cpf):
         erro_sobrenome.set('')
     if entrega_valida == True:
         if valid_nome == True and valid_sobrenome == True and valid_cpf == True:
-            verificar_login_finalizar_pedido()
+            verificar_login_finalizar_pedido('')
     elif entrega_valida == False:
         endereco()
 
@@ -1847,17 +1845,13 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
     if len(numero_cartao) == 16: 
         try:
             for i in numero_cartao:
-                i = int(i)
                 if i.isdigit():
                     validar_cartao = True
                 else:
                     validar_cartao = False
                     break
-            else:
-                validar_cartao = False
         except:
             validar_cartao = False
-    
     #Validar data de vencimento
     validar_data = verificar_data_vencimento(data_vencimento)
 
@@ -1865,13 +1859,13 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
     if len(codigo) == 3:
         try:
             for i in codigo:
-                i = int(i)
                 if i.isdigit():
                     valid_cvv = True
                 else:
                     valid_cvv = False
                     break
         except:
+            print(0)
             valid_cvv = False
 
     if valid_cvv == True:
@@ -1882,6 +1876,7 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
         erro_cpf_cadastro.set('')
     else:
         erro_cpf_cadastro.set('CPF em formato inválido')
+
     if validar_cartao == True:
         erro_numero_cartao.set('')
     else:
@@ -1895,6 +1890,8 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
         erro_data_cartao.set('')
     else:
         erro_data_cartao.set('Data inválida')
+    if valid_cpf == True and valid_cvv == True and validar_cartao == True and validar_data == True and validar_nome_titular == True:
+        verificar_login_finalizar_pedido('')
 
 def finalizar_pedido():
     global total_finalizar, entrega_valida
@@ -1927,11 +1924,18 @@ def finalizar_pedido():
     text = Label(frame2, image=finalizar_imagem, background='Black')
     text.place(relx=0.2, rely=0.4)
 
-def verificar_login_finalizar_pedido():
+def verificar_login_finalizar_pedido(metodo):
     global erro_termos_uso
     if logado == True and cont1 % 2 == 0:
-        finalizar_pedido()
-        erro_termos_uso.set('')
+        if metodo == 'Pix':
+            if entrega_valida == True:
+                finalizar_pedido()
+                erro_termos_uso.set('')
+            else:
+                endereco()
+        else:
+            finalizar_pedido()
+            erro_termos_uso.set('')
     elif logado == True and cont1 % 2 != 0:
         erro_termos_uso.set('Aceite os termos de uso')
     else:
