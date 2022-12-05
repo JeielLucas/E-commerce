@@ -1265,18 +1265,26 @@ def endereco():
     telefone_entrada.configure(font=(fonteDados))
     telefone_entrada.place(relx=0.56, rely=0.66, relheight=0.030, relwidth=0.13)
 
-    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: entrega(cep_entrada.get(), numero_entrada.get(), bairro_entrada.get(), cidade_entrada.get(), complemento_entrada.get(), endereco_entrada.get()))
+    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: entrega(cep_entrada.get(), numero_entrada.get(), bairro_entrada.get(), cidade_entrada.get(), endereco_entrada.get(), telefone_entrada.get()))
     botao_qualquer.configure(font=('Corbel', 18))
     botao_qualquer.place(relx=0.65, rely=0.835)
 
-def entrega(cep, num, bairro, cidade, complemento, rua):
+def entrega(cep, num, bairro, cidade, rua, telefone):
     global entrega_valida
     valid_cep = False
     valid_numero = False
     valid_bairro = False
     valid_cidade = False
-    valid_complemento = False
     valid_rua = False
+    valid_telefone = False
+    
+    # Telefone
+    lista = ['-', '(', ')', ' ']
+    for t in lista:
+        telefone = telefone.replace(t,'')
+    if len(telefone) == 11:
+        if telefone.isnumeric():
+            valid_telefone = True
     
     #Cep
     cep = cep.replace('-', '')
@@ -1312,16 +1320,6 @@ def entrega(cep, num, bairro, cidade, complemento, rua):
                     valid_cidade = False
                     break
     
-    #Complemento
-    if len(complemento) != 0:
-        if complemento[0] != ' ' and complemento[-1] != ' ':
-            for i in complemento:
-                if i.isalpha() or i == ' ':
-                    valid_complemento = True
-                else:
-                    valid_complemento = False
-                    break  
-    
     #Rua
     if len(rua) != 0:
         if rua[0] != ' ' and rua[-1] != ' ':
@@ -1331,7 +1329,7 @@ def entrega(cep, num, bairro, cidade, complemento, rua):
                 else:
                     valid_rua = False
                     break
-    if valid_cep == True and valid_numero == True and valid_bairro == True and valid_cidade == True and valid_complemento == True and valid_rua == True:
+    if valid_telefone == True and valid_cep == True and valid_numero == True and valid_bairro == True and valid_cidade == True and valid_rua == True:
         entrega_valida = True
         pagamento()
 
