@@ -12,7 +12,7 @@ valor_moletom = 89.99
 valor_caneca = 34.99
 carrinho_finalizar = {'Camisa': 0, 'Moletom':0, 'Caneca': 0}
 logado = False
-total_finalizar = 0
+total_finalizar = 1
 nome_modelo_texto = ''
 variavel = False
 cont1 = 1
@@ -1043,7 +1043,7 @@ def verificar_data_vencimento(data_vencimento):
         mes, ano = data_vencimento.split('/', 2)
         mes = int(mes)
         ano = int(ano)
-        if mes >= 1 and mes <=12:
+        if mes >= 1 or mes <=12:
             mes = str(mes)
             ano = str(ano)
             if (len(mes) == 2 or len(mes) == 1) and len(ano) == 2:
@@ -1053,11 +1053,13 @@ def verificar_data_vencimento(data_vencimento):
     except:
         valid = False
 
-#Trocar o ano para 2 digitos
     if valid_data == True:
         data_atual = date.today()
         mes_atual = data_atual.month
         ano_atual = data_atual.year
+        ano_atual = str(ano_atual)
+        ano_atual = ano_atual[2:4]
+        ano_atual = int(ano_atual)
         if ano_atual == ano:
             if mes_atual <= mes:
                 valid_data = True
