@@ -850,7 +850,7 @@ def cadastro():
     senha_texto.place(relx=0.65, rely=0.42)
     senha_texto.configure(font=('Arial', 13))
 
-    password = Entry()
+    password = Entry(show='*')
     password.configure(font=(fonteDados))
     password.place(relx=0.65, rely=0.53, relwidth=0.3)
     imagem_entrada_cadastro_senha = Label(frame2, image=imagens_entrada_cadastro, background='Black')
@@ -862,7 +862,7 @@ def cadastro():
     confirmar_senha_texto.place(relx=0.65, rely=0.66)
     confirmar_senha_texto.configure(font=('Arial', 13))
 
-    confPassword = Entry()
+    confPassword = Entry(show='*')
     confPassword.configure(font=(fonteDados))
     confPassword.place(relx=0.65, rely=0.68, relwidth=0.3)
     imagem_entrada_cadastro_confirmar_senha = Label(frame2, image=imagens_entrada_cadastro, background='Black')
