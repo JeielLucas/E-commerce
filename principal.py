@@ -30,7 +30,7 @@ qnt_parcelas_Var = IntVar(janela, qnt_parcelas)
 qnt_itensVar = IntVar(janela, qnt_itens)
 nome_modelo1 = StringVar(janela, nome_modelo_texto)
 
-#Erros Cadastro/Login
+#Erros
 erro_login_texto = StringVar(janela, '')
 erro_senha_cadastro = StringVar(janela, '')
 erro_email_cadastro = StringVar(janela, '')
@@ -43,16 +43,15 @@ erro_cvv_cartao = StringVar(janela, '')
 erro_data_cartao = StringVar(janela, '')
 erro_carrinho_vazio = StringVar(janela, '')
 cadastro_realizado_mensagem = StringVar(janela, '')
-
-
 erro_termos_uso = StringVar(janela, '')
+
 #Config Frames
 frame1 = Frame(janela, background='Black')
 frame1.place(relx=0, rely=0, relwidth=1, relheight=0.2)
 frame2 = Frame(janela, background='Black')
 frame2.place(relx=0, rely=0.205, relwidth=1, relheight=0.65)
 frame3 = Frame(janela, background='Black')
-frame3.place(relx=0, rely= 0.86, relwidth=1, relheight= 0.15)
+frame3.place(relx=0, rely= 0.86, relwidth=1, relheight=0.15)
 
 #Fontes
 fontE = tkFont.Font(family="Corbel", size=20, weight="bold")
@@ -234,7 +233,7 @@ def zerar_quantidade():
     qnt_itensVar.set(qnt_itens)
 
 def adicionar_item_carrinho(item):
-    global qnt_itens, total_finalizar, valor_camisa, valor_moletom, valor_caneca
+    global qnt_itens, total_finalizar
     carrinho_finalizar[item] += qnt_itens
     if item == 'Camisa':
         total_finalizar += carrinho_finalizar[item] * valor_camisa
@@ -850,7 +849,7 @@ def cadastro():
     senha_texto.place(relx=0.65, rely=0.42)
     senha_texto.configure(font=('Arial', 13))
 
-    password = Entry(show='*')
+    password = Entry()
     password.configure(font=(fonteDados))
     password.place(relx=0.65, rely=0.53, relwidth=0.3)
     imagem_entrada_cadastro_senha = Label(frame2, image=imagens_entrada_cadastro, background='Black')
@@ -862,7 +861,7 @@ def cadastro():
     confirmar_senha_texto.place(relx=0.65, rely=0.66)
     confirmar_senha_texto.configure(font=('Arial', 13))
 
-    confPassword = Entry(show='*')
+    confPassword = Entry()
     confPassword.configure(font=(fonteDados))
     confPassword.place(relx=0.65, rely=0.68, relwidth=0.3)
     imagem_entrada_cadastro_confirmar_senha = Label(frame2, image=imagens_entrada_cadastro, background='Black')
@@ -882,7 +881,7 @@ def isLoged(email, password):
     linha = 0
     arq = open('Dados_cliente/email.txt', 'r')
     for i in arq:
-        linha +=1
+        linha += 1
         i = i.replace(f'\n', '')
         if i == dicionario['e-mail']:
             senhas = open('Dados_cliente/password.txt', 'r')
@@ -897,7 +896,7 @@ def isLoged(email, password):
     if logado == True:
         erro_login_texto.set('')
         paginaInicial()
-        menu_logado
+        menu_logado()
     else:
         erro_login_texto.set('Email e/ou senha incorreto(s)')
 
@@ -950,7 +949,7 @@ def verificarIgualdadeSenha(senha, confSenha):
     else:
         if senha == confSenha:
             for i in senha:
-                if i == ' ' or i == '':
+                if i == ' ':
                     igual = False
                     break
                 else:
@@ -1047,13 +1046,14 @@ def verificar_data_vencimento(data_vencimento):
         if mes >= 1 and mes <=12:
             mes = str(mes)
             ano = str(ano)
-            if (len(mes) == 2 or len(mes) == 1) and len(ano) == 4:
+            if (len(mes) == 2 or len(mes) == 1) and len(ano) == 2:
                 mes = int(mes)
                 ano = int(ano)
                 valid_data = True
     except:
         valid = False
 
+#Trocar o ano para 2 digitos
     if valid_data == True:
         data_atual = date.today()
         mes_atual = data_atual.month
@@ -1265,18 +1265,26 @@ def endereco():
     telefone_entrada.configure(font=(fonteDados))
     telefone_entrada.place(relx=0.56, rely=0.66, relheight=0.030, relwidth=0.13)
 
-    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: entrega(cep_entrada.get(), numero_entrada.get(), bairro_entrada.get(), cidade_entrada.get(), complemento_entrada.get(), endereco_entrada.get()))
+    botao_qualquer = Button(frame2, text='Ir para o pagamento', background='Black', foreground='White', bd=0, activebackground='Black', activeforeground='White',cursor='hand2', command= lambda: entrega(cep_entrada.get(), numero_entrada.get(), bairro_entrada.get(), cidade_entrada.get(), endereco_entrada.get(), telefone_entrada.get()))
     botao_qualquer.configure(font=('Corbel', 18))
     botao_qualquer.place(relx=0.65, rely=0.835)
 
-def entrega(cep, num, bairro, cidade, complemento, rua):
+def entrega(cep, num, bairro, cidade, rua, telefone):
     global entrega_valida
     valid_cep = False
     valid_numero = False
     valid_bairro = False
     valid_cidade = False
-    valid_complemento = False
     valid_rua = False
+    valid_telefone = False
+    
+    # Telefone
+    lista = ['-', '(', ')', ' ']
+    for t in lista:
+        telefone = telefone.replace(t,'')
+    if len(telefone) == 11:
+        if telefone.isnumeric():
+            valid_telefone = True
     
     #Cep
     cep = cep.replace('-', '')
@@ -1312,16 +1320,6 @@ def entrega(cep, num, bairro, cidade, complemento, rua):
                     valid_cidade = False
                     break
     
-    #Complemento
-    if len(complemento) != 0:
-        if complemento[0] != ' ' and complemento[-1] != ' ':
-            for i in complemento:
-                if i.isalpha() or i == ' ':
-                    valid_complemento = True
-                else:
-                    valid_complemento = False
-                    break  
-    
     #Rua
     if len(rua) != 0:
         if rua[0] != ' ' and rua[-1] != ' ':
@@ -1331,7 +1329,7 @@ def entrega(cep, num, bairro, cidade, complemento, rua):
                 else:
                     valid_rua = False
                     break
-    if valid_cep == True and valid_numero == True and valid_bairro == True and valid_cidade == True and valid_complemento == True and valid_rua == True:
+    if valid_telefone == True and valid_cep == True and valid_numero == True and valid_bairro == True and valid_cidade == True and valid_rua == True:
         entrega_valida = True
         pagamento()
 
@@ -1400,7 +1398,7 @@ def pagamento():
     subtotal = Label(frame2, text='Sub-total', background='Black', foreground='White')
     subtotal.place(relx=0.6, rely= 0.5)
     subtotal.configure(font=('Arial', 15))
-    subtotal_valor = Label(frame2, text="%.2f R$" % total_finalizar, background='Black', foreground='White')
+    subtotal_valor = Label(frame2, text="R$ %.2f" % total_finalizar, background='Black', foreground='White')
     subtotal_valor.place(relx=0.8, rely=0.5)
     subtotal_valor.configure(font=('Arial', 15))
 
@@ -1414,7 +1412,7 @@ def pagamento():
     total = Label(frame2, text='Total', background='Black', foreground='White')
     total.place(relx=0.6, rely= 0.7)
     total.configure(font=('Arial', 15))
-    total_valor = Label(frame2, text="%.2f R$" % total_finalizar, background='Black', foreground='White')
+    total_valor = Label(frame2, text="R$ %.2f" % total_finalizar, background='Black', foreground='White')
     total_valor.place(relx=0.8, rely=0.7)
     total_valor.configure(font=('Arial', 15))
 
@@ -1838,36 +1836,7 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
     validar_nome_titular = verificar_nome(nome_titular)
 
     #Validar cpf
-    cpf = cpf.replace('.', '')
-    cpf = cpf.replace('-', '')
-    if len(cpf) == 11:
-        digito1 = 0
-        digito2 = 0
-        mult = 10
-        soma = 0
-        newCPF = cpf[:9]
-        for i in newCPF:
-            num = int(i)
-            num = num * mult
-            mult -=1
-            soma +=num
-        resto = soma%11
-        if resto >= 2:
-            digito1 = 11 - resto
-        if digito1 == int(cpf[9]):
-            mult = 11
-            soma = 0
-            newCPF = cpf[:10]
-            for i in newCPF:
-                num = int(i)
-                num = num * mult
-                mult -=1
-                soma +=num
-            resto = soma%11
-            if resto >= 2:
-                digito2 = 11 - resto
-            if digito2 == int(cpf[10]):
-                valid_cpf = True
+    valid_cpf = verificarCPF(cpf)
 
     #Validar número cartão
     numero_cartao = numero_cartao.replace(' ', '')
@@ -1894,7 +1863,6 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
                     valid_cvv = False
                     break
         except:
-            print(0)
             valid_cvv = False
 
     if valid_cvv == True:
