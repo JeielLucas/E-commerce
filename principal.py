@@ -806,7 +806,7 @@ def cadastro():
     validate_nome = Label(frame2, textvariable=erro_nome, background='Black', foreground='White')
     validate_nome.place(relx=0.1, rely=0.34)
 
-    data_nascimento_texto = Label(frame2, text='Data de nascimento: (Ex:dd/mm/aaaa)', background='Black', foreground='White')
+    data_nascimento_texto = Label(frame2, text='Data de nascimento:', background='Black', foreground='White')
     data_nascimento_texto.place(relx=0.1, rely=0.42)
     data_nascimento_texto.configure(font=('Arial', 13))
 
@@ -849,7 +849,7 @@ def cadastro():
     senha_texto.place(relx=0.65, rely=0.42)
     senha_texto.configure(font=('Arial', 13))
 
-    password = Entry()
+    password = Entry(show='*')
     password.configure(font=(fonteDados))
     password.place(relx=0.65, rely=0.53, relwidth=0.3)
     imagem_entrada_cadastro_senha = Label(frame2, image=imagens_entrada_cadastro, background='Black')
@@ -861,7 +861,7 @@ def cadastro():
     confirmar_senha_texto.place(relx=0.65, rely=0.66)
     confirmar_senha_texto.configure(font=('Arial', 13))
 
-    confPassword = Entry()
+    confPassword = Entry(show='*')
     confPassword.configure(font=(fonteDados))
     confPassword.place(relx=0.65, rely=0.68, relwidth=0.3)
     imagem_entrada_cadastro_confirmar_senha = Label(frame2, image=imagens_entrada_cadastro, background='Black')
@@ -1053,11 +1053,13 @@ def verificar_data_vencimento(data_vencimento):
     except:
         valid = False
 
-#Trocar o ano para 2 digitos
     if valid_data == True:
         data_atual = date.today()
         mes_atual = data_atual.month
         ano_atual = data_atual.year
+        ano_atual = str(ano_atual)
+        ano_atual = ano_atual[2:4]
+        ano_atual = int(ano_atual)
         if ano_atual == ano:
             if mes_atual <= mes:
                 valid_data = True
@@ -1836,7 +1838,36 @@ def verificar_dados_cartao(numero_cartao, nome_titular, data_vencimento, codigo,
     validar_nome_titular = verificar_nome(nome_titular)
 
     #Validar cpf
-    valid_cpf = verificarCPF(cpf)
+    cpf = cpf.replace('.', '')
+    cpf = cpf.replace('-', '')
+    if len(cpf) == 11:
+        digito1 = 0
+        digito2 = 0
+        mult = 10
+        soma = 0
+        newCPF = cpf[:9]
+        for i in newCPF:
+            num = int(i)
+            num = num * mult
+            mult -=1
+            soma +=num
+        resto = soma%11
+        if resto >= 2:
+            digito1 = 11 - resto
+        if digito1 == int(cpf[9]):
+            mult = 11
+            soma = 0
+            newCPF = cpf[:10]
+            for i in newCPF:
+                num = int(i)
+                num = num * mult
+                mult -=1
+                soma +=num
+            resto = soma%11
+            if resto >= 2:
+                digito2 = 11 - resto
+            if digito2 == int(cpf[10]):
+                valid_cpf = True
 
     #Validar número cartão
     numero_cartao = numero_cartao.replace(' ', '')
